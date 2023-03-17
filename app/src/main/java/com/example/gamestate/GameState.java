@@ -31,9 +31,22 @@ public class GameState {
 
     @Override
     public String toString(){
-        for(i)
+        String s = "";
+        for(int i = 0; i < 8; i++){
+            for(int j= 0; j <8; j++){
+                if(board[i][j] == 'b'){
+                    s += "/nBlack piece at [" + i +"][" + j + "]";
+                }
+                else if (board[i][j] == 'w') {
+                    s += "/nWhite piece at [" + i +"][" + j + "]";
+                }
+                else {
+                    s += "/nEmpty at [" + i + "][" + j + "]";
+                }
+            }
+        }
         return "Number of black pieces: " + numBlackPieces + "/nNumber of white pieces: " + numWhitePieces + "/nIs black's turn: " + isBlackTurn
-                + "/nIs white's turn: " + !isBlackTurn + "/nIs game over: " + gameOver;
+                + "/nIs white's turn: " + !isBlackTurn + "/nIs game over: " + gameOver + s;
     }
 
     public boolean isValidMove(){

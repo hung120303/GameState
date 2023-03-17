@@ -20,13 +20,29 @@ public class GameState {
         board[3][4] = 'w';
         board[4][4] = 'b';
     }
-    public GameState(int black, int white, boolean blackTurn, boolean gOver, char[][] boardState){
-        numBlackPieces = black;
-        numWhitePieces = white;
-        isBlackTurn = blackTurn;
-        gameOver = gOver;
-        board = boardState;
+    public GameState(GameState gs){
+        numBlackPieces = gs.getNumBlackPieces();
+        numWhitePieces = gs.getNumWhitePieces();
+        isBlackTurn = gs.getIsBlackTurn();
+        gameOver = gs.getGameOver();
+        board = gs.getBoard();
     }
+    public int getNumBlackPieces(){
+        return this.numBlackPieces;
+    }
+    public int getNumWhitePieces(){
+        return this.numWhitePieces;
+    }
+    public boolean getIsBlackTurn(){
+        return this.isBlackTurn;
+    }
+    public boolean getGameOver(){
+        return this.gameOver;
+    }
+    public char[][] getBoard(){
+        return this.board;
+    }
+
 
 
     @Override
@@ -49,11 +65,39 @@ public class GameState {
                 + "/nIs white's turn: " + !isBlackTurn + "/nIs game over: " + gameOver + s;
     }
 
-    public boolean isValidMove(){
+    public boolean isValidMove(int row, int col){
+        if(!(board[row][col] == 'e')){
+            return false;
+        }
+        else {
+            boolean oneOrMore = false;
+            boolean hasBlackPieceEnd = false;
+            boolean hasWhitePieceEnd = false;
+            if(isBlackTurn){
+                //Check to the left of the piece
+                if(row-1 != -1){
+                    if(board[row-1][col] == 'b'){
+                        return false;
+                    }
+                }
+                for(int i = row-1; row > -1; i--){
+                    if(board[i][col] == 'w'){
+                        oneOrMore = true;
+                    }
+                    if(board[i][col] == 'b'){
+                        hasBlackPieceEnd = true;
+                    }
+                }
+                if(oneOrMore && hasBlackPieceEnd){
+                    return true;
+                }
+            }
+            else
 
+        }
     }
-    public boolean makeMove(Boolean color){
-        if(isValidMove()){
+    public boolean makeMove(int row, int col){
+        if(isValidMove(row, col)){
 
             // Perform the move
 

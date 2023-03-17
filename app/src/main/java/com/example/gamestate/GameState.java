@@ -74,7 +74,7 @@ public class GameState {
             boolean hasBlackPieceEnd = false;
             boolean hasWhitePieceEnd = false;
             if(isBlackTurn){
-                //Check to the left of the piece
+                //Check below the piece
                 if(row-1 != -1){
                     if(board[row-1][col] == 'b'){
                         return false;
@@ -91,16 +91,65 @@ public class GameState {
                 if(oneOrMore && hasBlackPieceEnd){
                     return true;
                 }
+                //Check above the piece
+                if(row+1 != 8){
+                    if(board[row+1][col] == 'b'){
+                        return false;
+                    }
+                }
+                for(int i = row+1; row < 8; i++){
+                    if(board[i][col] == 'w'){
+                        oneOrMore = true;
+                    }
+                    if(board[i][col] == 'b'){
+                        hasBlackPieceEnd = true;
+                    }
+                }
+                if(oneOrMore && hasBlackPieceEnd){
+                    return true;
+                }
+                //Check to the left of the piece
+                if(col-1 != -1){
+                    if(board[row][col-1] == 'b'){
+                        return false;
+                    }
+                }
+                for(int i = col-1; col > -1; i--){
+                    if(board[row][i] == 'w'){
+                        oneOrMore = true;
+                    }
+                    if(board[row][i] == 'b'){
+                        hasBlackPieceEnd = true;
+                    }
+                }
+                if(oneOrMore && hasBlackPieceEnd){
+                    return true;
+                }
+                //Check to the right of the piece
+                if(col+1 != 8){
+                    if(board[row][col+1] == 'b'){
+                        return false;
+                    }
+                }
+                for(int i = col+1; col < 8; i++){
+                    if(board[row][i] == 'w'){
+                        oneOrMore = true;
+                    }
+                    if(board[row][i] == 'b'){
+                        hasBlackPieceEnd = true;
+                    }
+                }
+                if(oneOrMore && hasBlackPieceEnd){
+                    return true;
+                }
             }
-            else
+            else{}
 
         }
     }
     public boolean makeMove(int row, int col){
         if(isValidMove(row, col)){
-
-            // Perform the move
-
+            board = new char[8][8];
             isBlackTurn = !isBlackTurn;
             return true;
         }

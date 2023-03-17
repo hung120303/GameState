@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Button b = findViewById(R.id.runT);
         EditText et = findViewById(R.id.editTextTextMultiLine);
-        
+
         onClick(b);
 
     }

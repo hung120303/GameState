@@ -20,9 +20,18 @@ public class GameState {
         board[3][4] = 'w';
         board[4][4] = 'b';
     }
+    public GameState(int black, int white, boolean blackTurn, boolean gOver, char[][] boardState){
+        numBlackPieces = black;
+        numWhitePieces = white;
+        isBlackTurn = blackTurn;
+        gameOver = gOver;
+        board = boardState;
+    }
+
 
     @Override
     public String toString(){
+        for(i)
         return "Number of black pieces: " + numBlackPieces + "/nNumber of white pieces: " + numWhitePieces + "/nIs black's turn: " + isBlackTurn
                 + "/nIs white's turn: " + !isBlackTurn + "/nIs game over: " + gameOver;
     }

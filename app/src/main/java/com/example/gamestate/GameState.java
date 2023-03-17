@@ -1,3 +1,5 @@
+// @authors - Hung-Nghi Vu, Malory Morey, Masato Tsuji
+// @version - 3/17/2023
 package com.example.gamestate;
 
 public class GameState {
@@ -12,11 +14,11 @@ public class GameState {
     public GameState(){
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
-                board[i][j] = 'e';
+                board[i][j] = 'e'; // 'e' for empty
             }
         }
-        board[3][3] = 'b';
-        board[4][3] = 'w';
+        board[3][3] = 'b'; // 'b' for black piece
+        board[4][3] = 'w'; // 'w' for white piece
         board[3][4] = 'w';
         board[4][4] = 'b';
     }
@@ -146,6 +148,7 @@ public class GameState {
             else{}
 
         }
+        return false;
     }
     public boolean makeMove(int row, int col){
         if(isValidMove(row, col)){

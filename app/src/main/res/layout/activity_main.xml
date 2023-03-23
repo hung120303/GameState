@@ -17,6 +17,14 @@
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+
+    <com.example.gamestate.View
+        android:id="@+id/View"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+
     <Button
         android:id="@+id/runT"
         android:layout_width="wrap_content"

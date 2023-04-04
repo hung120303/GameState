@@ -163,8 +163,7 @@ public class GameState {
     /*
      * checks weather the game is over or not
      */
-    private boolean gameOver()
-    {
+    private boolean gameOver() {
         boolean full = false;
         int countTotal = 0;
         for (int i = 0; i < 8; i++)
@@ -184,4 +183,30 @@ public class GameState {
         return full;
     }
 
+    /*
+     shows the end game message and says who won with the amount of disks they had.
+     */
+    public void endGame() {
+        int blackC = 0;
+        int whiteC = 0;
+        for(int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == 'c') {
+                    blackC++;
+                }
+                if (board[i][j] == 'c'){
+                    whiteC++;
+                }
+            }
+        }
+        if (blackC > whiteC){
+            //show message balck wins
+        }
+        else if (whiteC > blackC) {
+            //message saying white wins
+        }
+        else {
+            //show tie message
+        }
+    }
 }

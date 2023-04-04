@@ -160,4 +160,28 @@ public class GameState {
             return false;
     }
 
+    /*
+     * checks weather the game is over or not
+     */
+    private boolean gameOver()
+    {
+        boolean full = false;
+        int countTotal = 0;
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if (isBlackTurn== true || isBlackTurn == false)
+                {
+                    countTotal++;
+                }
+            }
+        }
+        if (countTotal == 64)
+        {
+            full = true;
+        }
+        return full;
+    }
+
 }

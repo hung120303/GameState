@@ -68,5 +68,12 @@ public class View extends SurfaceView {
         c.drawCircle(850, 550, 49, white);
         c.drawCircle(850, 450, 49, black);
         c.drawCircle(750, 550, 49, black);
+
+
+        //The tiny circles on the board
+        c.drawCircle(600, 300, 8, black);
+        c.drawCircle(1000, 300, 8, black);
+        c.drawCircle(600, 700, 8, black);
+        c.drawCircle(1000, 700, 8, black);
     }
 }

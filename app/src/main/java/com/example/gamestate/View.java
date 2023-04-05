@@ -56,10 +56,4 @@ public class View extends SurfaceView {
 
         }
     }
-
-
-
-
-
-
 }

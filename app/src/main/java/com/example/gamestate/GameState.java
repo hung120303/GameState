@@ -170,7 +170,7 @@ public class GameState {
         {
             for (int j = 0; j < 8; j++)
             {
-                if (isBlackTurn== true || isBlackTurn == false)
+                if (!isBlackTurn || isBlackTurn )
                 {
                     countTotal++;
                 }
@@ -191,10 +191,10 @@ public class GameState {
         int whiteC = 0;
         for(int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j] == 'c') {
+                if (board[i][j] == 'b') {
                     blackC++;
                 }
-                if (board[i][j] == 'c'){
+                if (board[i][j] == 'w'){
                     whiteC++;
                 }
             }

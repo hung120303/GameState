@@ -16,14 +16,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EditText textMultiLine = (EditText)findViewById(R.id.editTextTextMultiLine);
-
         setContentView(R.layout.activity_main);
-        Button b = findViewById(R.id.runT);
-        et = findViewById(R.id.editTextTextMultiLine);
-
-        onClick(b);
-
     }
 
     @Override

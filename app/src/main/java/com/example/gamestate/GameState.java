@@ -7,10 +7,18 @@ public class GameState {
     public int numBlackPieces = 2;
     public int numWhitePieces = 2;
 
+    //Finding coordinates of mouse
+    public double touchX;
+    public double touchY;
     public boolean isBlackTurn = true;
     public boolean gameOver = false;
 
     char[][] board = new char[8][8];
+    // black piece = 'b'
+    //white piece = 'w'
+    //empty = 'w'
+
+
     public GameState(){
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){

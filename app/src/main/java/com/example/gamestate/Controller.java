@@ -1,6 +1,8 @@
 package com.example.gamestate;
 
-public class Controller implements android.view.View.OnClickListener {
+import android.view.MotionEvent;
+
+public class Controller implements android.view.View.OnClickListener, android.view.View.OnTouchListener {
     private View view;
     private GameState gameState;
 
@@ -11,6 +13,13 @@ public class Controller implements android.view.View.OnClickListener {
     @Override
     public void onClick(android.view.View view) {
         gameState.dumbAIMove();
+    }
 
+    @Override
+    public boolean onTouch(android.view.View view, MotionEvent motionEvent) {
+        //Get XY Coordinates
+        gameState.touchX = motionEvent.getX();
+        gameState.touchY = motionEvent.getY();
+        return false;
     }
 }

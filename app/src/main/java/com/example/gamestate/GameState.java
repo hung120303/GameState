@@ -161,6 +161,41 @@ public class GameState {
     }
 
     /*
+     * Dumb AI moves
+     * 100x100
+     * 700x200
+     * 1700x1200
+     */
+    public void dumbAIMove() {
+        boolean haveMoved = false;
+        if (!isBlackTurn) {//if its the computers turn
+            // Iterate through the board until you find an empty spot that is a valid move,
+            // Then place piece
+           for (int i = 0; i<8; i++) {
+               for (int j = 0; j < 8; j++) {
+                   if (haveMoved == false) {
+                       if (board[i][j] == 'e' && isValidMove(i, j)) {
+                           board[i][j] = 'w';//puts white piece
+                           haveMoved =true;
+                       }
+                       else{
+                           haveMoved = false;
+                       }
+                   }
+                   else if (haveMoved == true) {
+
+                   }
+               }
+           }
+        }
+        else {
+            //if its not the computers turn, don't do anything
+        }
+
+    }
+
+
+    /*
      * checks weather the game is over or not
      */
     private boolean gameOver() {

@@ -10,6 +10,7 @@ public class Controller implements android.view.View.OnClickListener {
     }
     @Override
     public void onClick(android.view.View view) {
+        gameState.dumbAIMove();
 
     }
 }

@@ -20,6 +20,9 @@ public class Controller implements android.view.View.OnClickListener, android.vi
         //Get XY Coordinates
         gameState.touchX = motionEvent.getX();
         gameState.touchY = motionEvent.getY();
+        if(gameState.isBlackTurn){
+            gameState.dumbMakeMove('b');
+        }
         return false;
     }
 }

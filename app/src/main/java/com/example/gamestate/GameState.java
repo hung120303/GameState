@@ -251,5 +251,246 @@ public class GameState {
         else {
             //show tie message
         }
+
+
+    }
+    public void dumbMakeMove(char c){
+        int x =0;
+        int y =0;
+        if(touchX > 400 && touchX < 500){
+            x = 450;
+        } else if (touchX < 600) {
+            x = 550;
+        }else if (touchX < 700) {
+            x = 650;
+        }else if (touchX < 800) {
+            x = 750;
+        }else if (touchX < 900) {
+            x = 850;
+        }else if (touchX < 1000) {
+            x = 950;
+        }else if (touchX < 1100) {
+            x = 1050;
+        } else if (touchX < 1200) {
+            x = 1150;
+        }
+        if(touchY > 100 && touchY < 200){
+            y = 150;
+        } else if (touchY < 300) {
+            y = 250;
+        }else if (touchY < 400) {
+            y = 350;
+        }else if (touchY < 500) {
+            y = 450;
+        }else if (touchY < 600) {
+            y = 550;
+        }else if (touchY < 700) {
+            y = 650;
+        }else if (touchY < 800) {
+            y = 750;
+        } else if (touchY < 900) {
+            y = 850;
+        }
+
+        if(x == 450 && y == 150){
+            board[0][0] = c;
+        }
+        if(x == 550 && y == 150){
+            board[1][0] = c;
+        }
+        if(x == 650 && y == 150){
+            board[2][0] = c;
+        }
+        if(x == 750 && y == 150){
+            board[3][0] = c;
+        }
+        if(x == 850 && y == 150){
+            board[4][0] = c;
+        }
+        if(x == 950 && y == 150){
+            board[5][0] = c;
+        }
+        if(x == 1050 && y == 150){
+            board[6][0] = c;
+        }
+        if(x == 1150 && y == 150){
+            board[7][0] = c;
+        }
+
+        if(x == 450 && y == 250){
+            board[0][1] = c;
+        }
+        if(x == 550 && y == 250){
+            board[1][1] = c;
+        }
+        if(x == 650 && y == 250){
+            board[2][1] = c;
+        }
+        if(x == 750 && y == 250){
+            board[3][1] = c;
+        }
+        if(x == 850 && y == 250){
+            board[4][1] = c;
+        }
+        if(x == 950 && y == 250){
+            board[5][1] = c;
+        }
+        if(x == 1050 && y == 250){
+            board[6][1] = c;
+        }
+        if(x == 1150 && y == 250){
+            board[7][1] = c;
+        }
+
+        if(x == 450 && y == 350){
+            board[0][2] = c;
+        }
+        if(x == 550 && y == 350){
+            board[1][2] = c;
+        }
+        if(x == 650 && y == 350){
+            board[2][2] = c;
+        }
+        if(x == 750 && y == 350){
+            board[3][2] = c;
+        }
+        if(x == 850 && y == 350){
+            board[4][2] = c;
+        }
+        if(x == 950 && y == 350){
+            board[5][2] = c;
+        }
+        if(x == 1050 && y == 350){
+            board[6][2] = c;
+        }
+        if(x == 1150 && y == 350){
+            board[7][2] = c;
+        }
+
+        if(x == 450 && y == 450){
+            board[0][3] = c;
+        }
+        if(x == 550 && y == 450){
+            board[1][3] = c;
+        }
+        if(x == 650 && y == 450){
+            board[2][3] = c;
+        }
+        if(x == 750 && y == 450){
+            board[3][3] = c;
+        }
+        if(x == 850 && y == 450){
+            board[4][3] = c;
+        }
+        if(x == 950 && y == 450){
+            board[5][3] = c;
+        }
+        if(x == 1050 && y == 450){
+            board[6][3] = c;
+        }
+        if(x == 1150 && y == 450){
+            board[7][3] = c;
+        }
+
+        if(x == 450 && y == 550){
+            board[0][4] = c;
+        }
+        if(x == 550 && y == 550){
+            board[1][4] = c;
+        }
+        if(x == 650 && y == 550){
+            board[2][4] = c;
+        }
+        if(x == 750 && y == 550){
+            board[3][4] = c;
+        }
+        if(x == 850 && y == 550){
+            board[4][4] = c;
+        }
+        if(x == 950 && y == 550){
+            board[5][4] = c;
+        }
+        if(x == 1050 && y == 550){
+            board[6][4] = c;
+        }
+        if(x == 1150 && y == 550){
+            board[7][4] = c;
+        }
+
+        if(x == 450 && y == 650){
+            board[0][5] = c;
+        }
+        if(x == 550 && y == 650){
+            board[1][5] = c;
+        }
+        if(x == 650 && y == 650){
+            board[2][5] = c;
+        }
+        if(x == 750 && y == 650){
+            board[3][5] = c;
+        }
+        if(x == 850 && y == 650){
+            board[4][5] = c;
+        }
+        if(x == 950 && y == 650){
+            board[5][5] = c;
+        }
+        if(x == 1050 && y == 650){
+            board[6][5] = c;
+        }
+        if(x == 1150 && y == 650){
+            board[7][5] = c;
+        }
+
+        if(x == 450 && y == 750){
+            board[0][6] = c;
+        }
+        if(x == 550 && y == 750){
+            board[1][6] = c;
+        }
+        if(x == 650 && y == 750){
+            board[2][6] = c;
+        }
+        if(x == 750 && y == 750){
+            board[3][6] = c;
+        }
+        if(x == 850 && y == 750){
+            board[4][6] = c;
+        }
+        if(x == 950 && y == 750){
+            board[5][6] = c;
+        }
+        if(x == 1050 && y == 750){
+            board[6][6] = c;
+        }
+        if(x == 1150 && y == 750){
+            board[7][6] = c;
+        }
+
+        if(x == 450 && y == 850){
+            board[0][7] = c;
+        }
+        if(x == 550 && y == 850){
+            board[1][7] = c;
+        }
+        if(x == 650 && y == 850){
+            board[2][7] = c;
+        }
+        if(x == 750 && y == 850){
+            board[3][7] = c;
+        }
+        if(x == 850 && y == 850){
+            board[4][7] = c;
+        }
+        if(x == 950 && y == 850){
+            board[5][7] = c;
+        }
+        if(x == 1050 && y == 850){
+            board[6][7] = c;
+        }
+        if(x == 1150 && y == 850){
+            board[7][7] = c;
+        }
+
     }
 }

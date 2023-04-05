@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--// @authors - Hung-Nghi Vu, Malory Morey, Masato Tsujii
 // @version - 3/17/2023-->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal">
-
-        <!--        CakeView is a custom SurfaceView that is defined in the app's source code -->
-        <com.example.gamestate.View
-            android:id="@+id/View"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+    <com.example.gamestate.View
+        android:id="@+id/View"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
     </LinearLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

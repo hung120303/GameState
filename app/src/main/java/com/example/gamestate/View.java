@@ -4,13 +4,15 @@ package com.example.gamestate;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.AttributeSet;
 import android.view.SurfaceView;
 
 public class View extends SurfaceView {
 
 
-    private Model model = new Model();
+    private GameState gameState = new GameState();
 
     int startX;
     int startY;
@@ -21,39 +23,42 @@ public class View extends SurfaceView {
     Paint white = new Paint();
     Paint green = new Paint();
 
-    public View(Context context) {
-        super(context);
-        model = new Model();
+    public View(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        gameState = new GameState();
 
-        black.setColor(0x00000000);
+        black.setColor(0xFF000000);
         white.setColor(0xFFFFFFFF);
         green.setColor(0xFF29AB87);
 
+        setBackgroundColor(Color.WHITE);
+
     }
+    public GameState getGameState(){ return gameState;}
 
     public void onDraw(Canvas c) {
         super.onDraw(c);
-        startX = 0;
-        startY = 0;
-        endX = 100;
-        endY = 0;
+        startX = 700;
+        startY = 200;
+        endX = 1700;
+        endY = 200;
 
-        c.drawRect(0, 0, 100, 100, green);
+        c.drawRect(700, 200, 1700, 1200, green);
         for (int i = 0; i < 9; i++) {
             c.drawLine(startX, startY, endX, endY, black);
-            startY += 10;
-            endY += 10;
+            startY += 100;
+            endY += 100;
         }
-        startX = 0;
-        startY = 0;
-        endX = 0;
-        endY = 100;
+
+        startX = 700;
+        startY = 200;
+        endX = 700;
+        endY = 1200;
 
         for(int i = 0; i < 9; i++) {
             c.drawLine(startX, startY, endX, endY, black);
-            startX += 10;
-            endX += 10;
-
+            startX += 100;
+            endX += 100;
         }
     }
 }

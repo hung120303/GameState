@@ -29,7 +29,7 @@ public class View extends SurfaceView {
 
         black.setColor(0xFF000000);
         white.setColor(0xFFFFFFFF);
-        green.setColor(0xFF29AB87);
+        green.setColor(0xFF29AB70);
 
         setBackgroundColor(Color.WHITE);
 
@@ -63,5 +63,10 @@ public class View extends SurfaceView {
             startX += 100;
             endX += 100;
         }
+
+        c.drawCircle(750, 450, 49, white);
+        c.drawCircle(850, 550, 49, white);
+        c.drawCircle(850, 450, 49, black);
+        c.drawCircle(750, 550, 49, black);
     }
 }

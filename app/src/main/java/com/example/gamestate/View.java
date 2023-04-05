@@ -38,23 +38,26 @@ public class View extends SurfaceView {
 
     public void onDraw(Canvas c) {
         super.onDraw(c);
-        startX = 700;
-        startY = 200;
-        endX = 1700;
-        endY = 200;
+        startX = 400;
+        startY = 100;
+        endX = 1200;
+        endY = 100;
 
-        c.drawRect(700, 200, 1700, 1200, green);
+
+        c.drawRect(400, 100, 1200, 900, green);
+        //vertical lines
         for (int i = 0; i < 9; i++) {
             c.drawLine(startX, startY, endX, endY, black);
             startY += 100;
             endY += 100;
         }
 
-        startX = 700;
-        startY = 200;
-        endX = 700;
-        endY = 1200;
+        startX = 400;
+        startY = 100;
+        endX = 400;
+        endY = 900;
 
+        //horizontal lines
         for(int i = 0; i < 9; i++) {
             c.drawLine(startX, startY, endX, endY, black);
             startX += 100;

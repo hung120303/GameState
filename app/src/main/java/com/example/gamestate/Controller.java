@@ -1,5 +1,6 @@
 package com.example.gamestate;
 
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class Controller implements android.view.View.OnClickListener, android.view.View.OnTouchListener {
@@ -12,7 +13,7 @@ public class Controller implements android.view.View.OnClickListener, android.vi
     }
     @Override
     public void onClick(android.view.View view) {
-        gameState.dumbAIMove();
+
     }
 
     @Override
@@ -20,9 +21,28 @@ public class Controller implements android.view.View.OnClickListener, android.vi
         //Get XY Coordinates
         gameState.touchX = motionEvent.getX();
         gameState.touchY = motionEvent.getY();
-        if(gameState.isBlackTurn){
+
             gameState.dumbMakeMove('b');
-        }
+            view.invalidate();
+            Log.d("click", "black moves");
+            gameState.setIsBlackTurn(false);
+
+            if(!gameState.isBlackTurn){
+                gameState.dumbAIMove();
+                Log.d("click", "white moves");
+                sleep(1000);
+                view.invalidate();
+                gameState.setIsBlackTurn(true);
+            }
+
+
         return false;
     }
+    protected void sleep(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+        }
+    }
+
 }

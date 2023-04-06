@@ -12,7 +12,7 @@ import android.view.SurfaceView;
 public class View extends SurfaceView {
 
 
-    private GameState gameState = new GameState();
+    private GameState gameState;
 
     int startX;
     int startY;
@@ -75,5 +75,22 @@ public class View extends SurfaceView {
         c.drawCircle(1000, 300, 8, black);
         c.drawCircle(600, 700, 8, black);
         c.drawCircle(1000, 700, 8, black);
+
+        //Check the board and update it with the current state of the game
+        char[][] state = gameState.getBoard();
+        for (int i = 0; i<8; i++) {
+            for (int j = 0; j < 8; j++) {
+                    if(state[i][j] == 'b') {
+                        c.drawCircle(450 + (100 * i), 150 + (100 * j), 49, black);
+                    }
+                    else if(state[i][j] == 'w') {
+                        c.drawCircle(450 + (100 * i), 150 + (100 * j), 49, white);
+                    }
+                    else if(state[i][j] == 'e'){
+                        c.drawCircle(450 + (100 * i), 150 + (100 * j), 49, green);
+                    }
+                }
+            }
+        }
     }
-}
+

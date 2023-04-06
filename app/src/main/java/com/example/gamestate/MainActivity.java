@@ -17,7 +17,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        View view = findViewById(R.id.View);
+        Controller controller = new Controller((com.example.gamestate.View) view);
 
+        view.setOnTouchListener(controller);
     }
 
     @Override

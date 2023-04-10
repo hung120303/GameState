@@ -1,5 +1,6 @@
 package com.example.gamestate;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -27,15 +28,15 @@ public class Controller implements android.view.View.OnClickListener, android.vi
             Log.d("click", "black moves");
             gameState.setIsBlackTurn(false);
 
-            if(!gameState.isBlackTurn){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
                 gameState.dumbAIMove();
-                Log.d("click", "white moves");
-                sleep(1000);
                 view.invalidate();
                 gameState.setIsBlackTurn(true);
             }
-
-
+        }, 3000);
         return false;
     }
     protected void sleep(int milliseconds) {

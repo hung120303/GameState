@@ -85,14 +85,16 @@ public class GameState {
             boolean oneOrMore = false;
             boolean hasBlackPieceEnd = false;
             boolean hasWhitePieceEnd = false;
+            int i;
+            int j;
             if(isBlackTurn){
                 //Check below the piece
                 if(row-1 != -1){
-                    if(board[row-1][col] == 'b'){
+                    if(board[row-1][col] == 'b' || board[row-1][col] == 'e'){
                         return false;
                     }
                 }
-                for(int i = row-1; row > -1; i--){
+                for( i = row-1; row > -1; i--){
                     if(board[i][col] == 'w'){
                         oneOrMore = true;
                     }
@@ -105,11 +107,11 @@ public class GameState {
                 }
                 //Check above the piece
                 if(row+1 != 8){
-                    if(board[row+1][col] == 'b'){
+                    if(board[row+1][col] == 'b'||board[row+1][col] == 'e'){
                         return false;
                     }
                 }
-                for(int i = row+1; row < 8; i++){
+                for( i = row+1; row < 8; i++){
                     if(board[i][col] == 'w'){
                         oneOrMore = true;
                     }
@@ -122,11 +124,11 @@ public class GameState {
                 }
                 //Check to the left of the piece
                 if(col-1 != -1){
-                    if(board[row][col-1] == 'b'){
+                    if(board[row][col-1] == 'b' || board[row][col-1] == 'e'){
                         return false;
                     }
                 }
-                for(int i = col-1; col > -1; i--){
+                for( i = col-1; col > -1; i--){
                     if(board[row][i] == 'w'){
                         oneOrMore = true;
                     }
@@ -139,11 +141,11 @@ public class GameState {
                 }
                 //Check to the right of the piece
                 if(col+1 != 8){
-                    if(board[row][col+1] == 'b'){
+                    if(board[row][col+1] == 'b' ||board[row][col+1] == 'e'){
                         return false;
                     }
                 }
-                for(int i = col+1; col < 8; i++){
+                for( i = col+1; col < 8; i++){
                     if(board[row][i] == 'w'){
                         oneOrMore = true;
                     }
@@ -154,8 +156,95 @@ public class GameState {
                 if(oneOrMore && hasBlackPieceEnd){
                     return true;
                 }
+                //Check diagonally top left of the piece
+                if(col-1 != -1 && row -1 != -1){
+                    if(board[row-1][col-1] == 'b'||board[row-1][col-1] == 'e'){
+                        return false;
+                    }
+                }
+                i = row-1;
+                j = col-1;
+                while(i > -1 && j > -1){
+                    if(board[i][j] == 'w'){
+                        oneOrMore = true;
+                    }
+                    if(board[i][j] == 'b'){
+                        hasBlackPieceEnd = true;
+                    }
+                    i--;
+                    j--;
+                }
+                if(oneOrMore && hasBlackPieceEnd){
+                        return true;
+                }
+                //Check diagonally bottom right of the piece
+                if(col+1 != 8 && row +1 != 8){
+                    if(board[row+1][col+1] == 'b' ||board[row+1][col+1] == 'e'){
+                        return false;
+                    }
+                }
+                i = row+1;
+                j = col+1;
+                while(i < 8 && j < 8){
+                    if(board[i][j] == 'w'){
+                        oneOrMore = true;
+                    }
+                    if(board[i][j] == 'b'){
+                        hasBlackPieceEnd = true;
+                    }
+                    i++;
+                    j++;
+                }
+                if(oneOrMore && hasBlackPieceEnd){
+                    return true;
+                }
+                //Check diagonally bottom left of the piece
+                if(col-1 != -1 && row +1 != 8){
+                    if(board[row+1][col-1] == 'b' || board[row+1][col-1] == 'e'){
+                        return false;
+                    }
+                }
+                i = row+1;
+                j = col-1;
+                while(i < 8 && j > -1){
+                    if(board[i][j] == 'w'){
+                        oneOrMore = true;
+                    }
+                    if(board[i][j] == 'b'){
+                        hasBlackPieceEnd = true;
+                    }
+                    i++;
+                    j--;
+                }
+                if(oneOrMore && hasBlackPieceEnd){
+                    return true;
+                }
+                //Check diagonally top right of the piece
+                if(col+1 != 8 && row -1 != -1){
+                    if(board[row-1][col+1] == 'b' || board[row-1][col+1] == 'e'){
+                        return false;
+                    }
+                }
+                i = row-1;
+                j = col+1;
+                while(i > -1 && j < 8){
+                    if(board[i][j] == 'w'){
+                        oneOrMore = true;
+                    }
+                    if(board[i][j] == 'b'){
+                        hasBlackPieceEnd = true;
+                    }
+                    i--;
+                    j++;
+                }
+                if(oneOrMore && hasBlackPieceEnd){
+                    return true;
+                }
             }
-            else{}
+            else {
+                //If it is whites turn
+
+            }
 
         }
         return false;

@@ -92,10 +92,10 @@ public class GameState {
                     if (board[row - 1][col] == 'w') {
                         while(!isEmpty) { //Until an empty space or end of board is reached, go through the direction on board
                             for (i = row - 1; i > -1; i--) {
-                                if(board[i][col] == 'b'){ //If at some point, a space in the direction has a black piece, there is a valid move for the direction
+                                if(board[i][col] == 'b' && !isEmpty){ //If at some point, a space in the direction has a black piece, there is a valid move for the direction
                                     return true;
                                 }
-                                if(board[i][col] == 'e' || i == 0){ //Stop at empty space or end of board
+                                else if(board[i][col] == 'e' || i == 0){ //Stop at empty space or end of board
                                     isEmpty = true;
                                 }
                             }
@@ -108,10 +108,10 @@ public class GameState {
                     if (board[row + 1][col] == 'w') {
                         while(!isEmpty) {
                             for (i = row + 1; i < 8; i++) {
-                                if (board[i][col] == 'b') {
+                                if (board[i][col] == 'b'&& !isEmpty) {
                                     return true;
                                 }
-                                if (board[i][col] == 'e' || i == 7) {
+                                else if (board[i][col] == 'e' || i == 7) {
                                     isEmpty = true;
                                 }
                             }
@@ -124,10 +124,10 @@ public class GameState {
                     if (board[row][col - 1] == 'w') {
                         while(!isEmpty) {
                             for (i = col - 1; i > -1; i--) {
-                                if (board[row][i] == 'b') {
+                                if (board[row][i] == 'b'&& !isEmpty) {
                                     return true;
                                 }
-                                if (board[row][i] == 'e' || i ==0 ) {
+                                else if (board[row][i] == 'e' || i ==0 ) {
                                     isEmpty = true;
                                 }
                             }
@@ -140,10 +140,10 @@ public class GameState {
                     if (board[row][col + 1] == 'w') {
                        while(!isEmpty){
                            for (i = col + 1; i < 8; i++) {
-                               if (board[row][i] == 'b') {
+                               if (board[row][i] == 'b'&& !isEmpty) {
                                    return true;
                                }
-                               if(board[row][i] == 'e' || i == 7){
+                               else if(board[row][i] == 'e' || i == 7){
                                    isEmpty = true;
                                }
                            }
@@ -161,7 +161,7 @@ public class GameState {
                                 if (board[i][j] == 'b') {
                                     return true;
                                 }
-                                if(board[i][j] == 'e' || i == 0 || j ==0){
+                                else if(board[i][j] == 'e' || i == 0 || j ==0){
                                     isEmpty = true;
                                 }
                                 i--;
@@ -180,7 +180,7 @@ public class GameState {
                                 if (board[i][j] == 'b') {
                                     return true;
                                 }
-                                if(board[i][j] == 'e' || i == 7 || j ==7){
+                                else if(board[i][j] == 'e' || i == 7 || j ==7){
                                     isEmpty = true;
                                 }
                                 i++;
@@ -198,7 +198,7 @@ public class GameState {
                                 if (board[i][j] == 'b') {
                                     return true;
                                 }
-                                if(board[i][j] == 'e' || i == 7 || j == 0){
+                                else if(board[i][j] == 'e' || i == 7 || j == 0){
                                     isEmpty = true;
                                 }
                                 i++;
@@ -217,7 +217,7 @@ public class GameState {
                                 if (board[i][j] == 'b') {
                                     return true;
                                 }
-                                if(board[i][j] == 'e' || i == 0 || j == 7){
+                                else if(board[i][j] == 'e' || i == 0 || j == 7){
                                     isEmpty = true;
                                 }
                                 i--;
@@ -235,10 +235,10 @@ public class GameState {
                     if (board[row - 1][col] == 'b') {
                         while(!isEmpty) { //Until an empty space is reached, go through the direction on board
                             for (i = row - 1; i > -1; i--) {
-                                if(board[i][col] == 'w'){ //If at some point, a space in the direction has a black piece, there is a valid move for the direction
+                                if(board[i][col] == 'w'&& !isEmpty){ //If at some point, a space in the direction has a black piece, there is a valid move for the direction
                                     return true;
                                 }
-                                if(board[i][col] == 'e' || i == 0){ //Stop at empty space
+                                else if(board[i][col] == 'e' || i == 0){ //Stop at empty space
                                     isEmpty = true;
                                 }
                             }
@@ -251,10 +251,10 @@ public class GameState {
                     if (board[row + 1][col] == 'b') {
                         while(!isEmpty) {
                             for (i = row + 1; i < 8; i++) {
-                                if (board[i][col] == 'w') {
+                                if (board[i][col] == 'w'&& !isEmpty) {
                                     return true;
                                 }
-                                if (board[i][col] == 'e' || i == 7) {
+                                else if (board[i][col] == 'e' || i == 7) {
                                     isEmpty = true;
                                 }
                             }
@@ -267,10 +267,10 @@ public class GameState {
                     if (board[row][col - 1] == 'b') {
                         while(!isEmpty) {
                             for (i = col - 1; i > -1; i--) {
-                                if (board[row][i] == 'w') {
+                                if (board[row][i] == 'w'&& !isEmpty) {
                                     return true;
                                 }
-                                if (board[row][i] == 'e' || i == 0) {
+                                else if (board[row][i] == 'e' || i == 0) {
                                     isEmpty = true;
                                 }
                             }
@@ -283,10 +283,10 @@ public class GameState {
                     if (board[row][col + 1] == 'b') {
                         while(!isEmpty){
                             for (i = col + 1; i < 8; i++) {
-                                if (board[row][i] == 'w') {
+                                if (board[row][i] == 'w'&& !isEmpty) {
                                     return true;
                                 }
-                                if(board[row][i] == 'e' || i == 7){
+                                else if(board[row][i] == 'e' || i == 7){
                                     isEmpty = true;
                                 }
                             }
@@ -303,7 +303,7 @@ public class GameState {
                                 if (board[i][j] == 'w') {
                                     return true;
                                 }
-                                if(board[i][j] == 'e' || i== 8 || j ==0){
+                                else if(board[i][j] == 'e' || i== 8 || j ==0){
                                     isEmpty = true;
                                 }
                                 i--;
@@ -323,7 +323,7 @@ public class GameState {
                                 if (board[i][j] == 'w') {
                                     return true;
                                 }
-                                if(board[i][j] == 'e' || i== 7 || j ==7){
+                                else if(board[i][j] == 'e' || i== 7 || j ==7){
                                     isEmpty = true;
                                 }
                                 i++;
@@ -343,7 +343,7 @@ public class GameState {
                                 if (board[i][j] == 'w') {
                                     return true;
                                 }
-                                if(board[i][j] == 'e' || i==7 || j ==0){
+                                else if(board[i][j] == 'e' || i==7 || j ==0){
                                     isEmpty = true;
                                 }
                                 i++;
@@ -363,7 +363,7 @@ public class GameState {
                                 if (board[i][j] == 'w') {
                                     return true;
                                 }
-                                if(board[i][j] == 'e' || i ==0 || j==7){
+                                else if(board[i][j] == 'e' || i ==0 || j==7){
                                     isEmpty = true;
                                 }
                                 i--;
@@ -535,9 +535,14 @@ public class GameState {
                         while(!isEmpty) { //Until an empty space or end of board is reached, go through the direction on board
                             for (i = row - 1; i > -1; i--) {
                                 if(board[i][col] == 'b'){ //If at some point, a space in the direction has a black piece, there is a valid move for the direction
-                                    // true;
+                                    for(int x = row -1; x > i; x--){
+                                        if(board[x][col] == 'w' && !isEmpty){
+                                            board[x][col] = 'b';
+                                        }
+                                    }
+                                    isEmpty = true;
                                 }
-                                if(board[i][col] == 'e' || i == 0){ //Stop at empty space or end of board
+                                else if(board[i][col] == 'e' || i == 0){ //Stop at empty space or end of board
                                     isEmpty = true;
                                 }
                             }
@@ -551,9 +556,14 @@ public class GameState {
                         while(!isEmpty) {
                             for (i = row + 1; i < 8; i++) {
                                 if (board[i][col] == 'b') {
-                                    // true;
+                                    for(int x = row +1; x < i; x++){
+                                        if(board[x][col] == 'w' && !isEmpty){
+                                            board[x][col] = 'b';
+                                        }
+                                    }
+                                    isEmpty = true;
                                 }
-                                if (board[i][col] == 'e' || i == 7) {
+                                else if (board[i][col] == 'e' || i == 7) {
                                     isEmpty = true;
                                 }
                             }
@@ -567,9 +577,14 @@ public class GameState {
                         while(!isEmpty) {
                             for (i = col - 1; i > -1; i--) {
                                 if (board[row][i] == 'b') {
-                                    // true;
+                                    for(int x = col -1; x > i; x--){
+                                        if(board[row][x] == 'w'&& !isEmpty){
+                                            board[row][x] = 'b';
+                                        }
+                                    }
+                                    isEmpty = true;
                                 }
-                                if (board[row][i] == 'e' || i ==0 ) {
+                                else if (board[row][i] == 'e' || i ==0 ) {
                                     isEmpty = true;
                                 }
                             }
@@ -583,9 +598,14 @@ public class GameState {
                         while(!isEmpty){
                             for (i = col + 1; i < 8; i++) {
                                 if (board[row][i] == 'b') {
-                                    // true;
+                                    for(int x = col +1; x < i; x++){
+                                        if(board[row][x] == 'w'&& !isEmpty){
+                                            board[row][x] = 'b';
+                                        }
+                                    }
+                                    isEmpty = true;
                                 }
-                                if(board[row][i] == 'e' || i == 7){
+                                else if(board[row][i] == 'e' || i == 7){
                                     isEmpty = true;
                                 }
                             }
@@ -602,8 +622,20 @@ public class GameState {
                             while (i > -1 && j > -1) {
                                 if (board[i][j] == 'b') {
                                     // true;
+                                    int x = row -1;
+                                    int y = col -1;
+                                    while(!isEmpty) {
+                                        while (x > i && y > j) {
+                                            if (board[x][y] == 'w') {
+                                                board[x][y] = 'b';
+                                            }
+                                            x--;
+                                            y--;
+                                        }
+                                        isEmpty = true;
+                                    }
                                 }
-                                if(board[i][j] == 'e' || i == 0 || j ==0){
+                                else if(board[i][j] == 'e' || i == 0 || j ==0){
                                     isEmpty = true;
                                 }
                                 i--;
@@ -621,8 +653,21 @@ public class GameState {
                         while (i < 8 && j < 8 && !isEmpty) {
                             if (board[i][j] == 'b') {
                                 // true;
+                                int x = row +1;
+                                int y = col +1;
+                                while(!isEmpty) {
+                                    while (x < i && y < j) {
+                                        if (board[x][y] == 'w') {
+                                            board[x][y] = 'b';
+                                        }
+                                        x++;
+                                        y++;
+
+                                    }
+                                    isEmpty = true;
+                                }
                             }
-                            if(board[i][j] == 'e' || i == 7 || j ==7){
+                            else if(board[i][j] == 'e' || i == 7 || j ==7){
                                 isEmpty = true;
                             }
                             i++;
@@ -639,8 +684,20 @@ public class GameState {
                         while (i < 8 && j > -1 && !isEmpty) {
                             if (board[i][j] == 'b') {
                                 // true;
+                                int x = row +1;
+                                int y = col -1;
+                                while(!isEmpty) {
+                                    while (x < i && y > j) {
+                                        if (board[x][y] == 'w') {
+                                            board[x][y] = 'b';
+                                        }
+                                        x++;
+                                        y--;
+                                    }
+                                    isEmpty = true;
+                                }
                             }
-                            if(board[i][j] == 'e' || i == 7 || j == 0){
+                            else if(board[i][j] == 'e' || i == 7 || j == 0){
                                 isEmpty = true;
                             }
                             i++;
@@ -658,8 +715,20 @@ public class GameState {
                         while (i > -1 && j < 8 && !isEmpty) {
                             if (board[i][j] == 'b') {
                                 // true;
+                                int x = row -1;
+                                int y = col +1;
+                                while(!isEmpty) {
+                                    while (x > i && y < j) {
+                                        if (board[x][y] == 'w') {
+                                            board[x][y] = 'b';
+                                        }
+                                        x--;
+                                        y++;
+                                    }
+                                    isEmpty = true;
+                                }
                             }
-                            if(board[i][j] == 'e' || i == 0 || j == 7){
+                            else if(board[i][j] == 'e' || i == 0 || j == 7){
                                 isEmpty = true;
                             }
                             i--;
@@ -679,8 +748,14 @@ public class GameState {
                             for (i = row - 1; i > -1; i--) {
                                 if(board[i][col] == 'w'){ //If at some point, a space in the direction has a black piece, there is a valid move for the direction
                                     // true;
+                                    for(int x = row -1; x > i; x--){
+                                        if(board[x][col] == 'b' && !isEmpty){
+                                            board[x][col] = 'w';
+                                        }
+                                    }
+                                    isEmpty = true;
                                 }
-                                if(board[i][col] == 'e' || i == 0){ //Stop at empty space
+                                else if(board[i][col] == 'e' || i == 0){ //Stop at empty space
                                     isEmpty = true;
                                 }
                             }
@@ -695,8 +770,14 @@ public class GameState {
                             for (i = row + 1; i < 8; i++) {
                                 if (board[i][col] == 'w') {
                                     // true;
+                                    for(int x = row +1; x < i; x++){
+                                        if(board[x][col] == 'b'&& !isEmpty){
+                                            board[x][col] = 'w';
+                                        }
+                                    }
+                                    isEmpty = true;
                                 }
-                                if (board[i][col] == 'e' || i == 7) {
+                                else if (board[i][col] == 'e' || i == 7) {
                                     isEmpty = true;
                                 }
                             }
@@ -711,8 +792,14 @@ public class GameState {
                             for (i = col - 1; i > -1; i--) {
                                 if (board[row][i] == 'w') {
                                     // true;
+                                    for(int x = col -1; x > i; x--){
+                                        if(board[row][x] == 'b'&& !isEmpty){
+                                            board[row][x] = 'w';
+                                        }
+                                    }
+                                    isEmpty = true;
                                 }
-                                if (board[row][i] == 'e' || i == 0) {
+                                else if (board[row][i] == 'e' || i == 0) {
                                     isEmpty = true;
                                 }
                             }
@@ -727,8 +814,15 @@ public class GameState {
                             for (i = col + 1; i < 8; i++) {
                                 if (board[row][i] == 'w') {
                                     // true;
+                                    for(int x = col +1; x < i; x++){
+                                        if(board[row][x] == 'b'&& !isEmpty){
+                                            board[row][x] = 'w';
+                                        }
+                                    }
+                                    isEmpty = true;
+
                                 }
-                                if(board[row][i] == 'e' || i == 7){
+                                else if(board[row][i] == 'e' || i == 7){
                                     isEmpty = true;
                                 }
                             }
@@ -744,8 +838,20 @@ public class GameState {
                         while (i > -1 && j > -1 && !isEmpty) {
                             if (board[i][j] == 'w') {
                                 // true;
+                                int x = row -1;
+                                int y = col -1;
+                                while(!isEmpty) {
+                                    while (x > i && y > j) {
+                                        if (board[x][y] == 'b') {
+                                            board[x][y] = 'w';
+                                        }
+                                        x--;
+                                        y--;
+                                    }
+                                    isEmpty = true;
+                                }
                             }
-                            if(board[i][j] == 'e' || i== 8 || j ==0){
+                            else if(board[i][j] == 'e' || i== 8 || j ==0){
                                 isEmpty = true;
                             }
                             i--;
@@ -764,8 +870,20 @@ public class GameState {
                         while (i < 8 && j < 8 && !isEmpty) {
                             if (board[i][j] == 'w') {
                                 // true;
+                                int x = row +1;
+                                int y = col +1;
+                                while(!isEmpty) {
+                                    while (x < i && y < j) {
+                                        if (board[x][y] == 'b') {
+                                            board[x][y] = 'w';
+                                        }
+                                        x++;
+                                        y++;
+                                    }
+                                    isEmpty = true;
+                                }
                             }
-                            if(board[i][j] == 'e' || i== 7 || j ==7){
+                            else if(board[i][j] == 'e' || i== 7 || j ==7){
                                 isEmpty = true;
                             }
                             i++;
@@ -784,8 +902,20 @@ public class GameState {
                         while (i < 8 && j > -1 && !isEmpty) {
                             if (board[i][j] == 'w') {
                                 // true;
+                                int x = row +1;
+                                int y = col -1;
+                                while(!isEmpty) {
+                                    while (x < i && y > j) {
+                                        if (board[x][y] == 'b') {
+                                            board[x][y] = 'w';
+                                        }
+                                        x++;
+                                        y--;
+                                    }
+                                    isEmpty = true;
+                                }
                             }
-                            if(board[i][j] == 'e' || i==7 || j ==0){
+                            else if(board[i][j] == 'e' || i==7 || j ==0){
                                 isEmpty = true;
                             }
                             i++;
@@ -804,8 +934,20 @@ public class GameState {
                         while (i > -1 && j < 8 && !isEmpty) {
                             if (board[i][j] == 'w') {
                                 // true;
+                                int x = row -1;
+                                int y = col +1;
+                                while(!isEmpty) {
+                                    while (x > i && y < j) {
+                                        if (board[x][y] == 'b') {
+                                            board[x][y] = 'w';
+                                        }
+                                        x--;
+                                        y++;
+                                    }
+                                    isEmpty = true;
+                                }
                             }
-                            if(board[i][j] == 'e' || i ==0 || j==7){
+                            else if(board[i][j] == 'e' || i ==0 || j==7){
                                 isEmpty = true;
                             }
                             i--;

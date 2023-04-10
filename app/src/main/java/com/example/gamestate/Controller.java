@@ -22,7 +22,7 @@ public class Controller implements android.view.View.OnClickListener, android.vi
         //Get XY Coordinates
         gameState.touchX = motionEvent.getX();
         gameState.touchY = motionEvent.getY();
-
+        view.invalidate();
         if(gameState.dumbMakeMove('b')){
             view.invalidate();
             Log.d("click", "black moves");

@@ -23,20 +23,25 @@ public class Controller implements android.view.View.OnClickListener, android.vi
         gameState.touchX = motionEvent.getX();
         gameState.touchY = motionEvent.getY();
 
-            gameState.dumbMakeMove('b');
+        if(gameState.dumbMakeMove('b')){
             view.invalidate();
             Log.d("click", "black moves");
             gameState.setIsBlackTurn(false);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                gameState.dumbAIMove();
-                view.invalidate();
-                gameState.setIsBlackTurn(true);
-            }
-        }, 3000);
+            //White AI move
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    gameState.dumbAIMove();
+                    view.invalidate();
+                    gameState.setIsBlackTurn(true);
+                }
+            }, 3000);
+        }
+
+
+
         return false;
     }
     protected void sleep(int milliseconds) {

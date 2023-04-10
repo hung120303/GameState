@@ -81,13 +81,13 @@ public class View extends SurfaceView {
         for (int i = 0; i<8; i++) {
             for (int j = 0; j < 8; j++) {
                     if(state[i][j] == 'b') {
-                        c.drawCircle(450 + (100 * i), 150 + (100 * j), 49, black);
+                        c.drawCircle(450 + (100 * j), 150 + (100 * i), 49, black);
                     }
                     else if(state[i][j] == 'w') {
-                        c.drawCircle(450 + (100 * i), 150 + (100 * j), 49, white);
+                        c.drawCircle(450 + (100 * j), 150 + (100 * i), 49, white);
                     }
                     else if(state[i][j] == 'e'){
-                        c.drawCircle(450 + (100 * i), 150 + (100 * j), 49, green);
+                        c.drawCircle(450 + (100 * j), 150 + (100 * i), 49, green);
                     }
                 }
             }

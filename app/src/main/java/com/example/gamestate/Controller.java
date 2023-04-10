@@ -35,9 +35,10 @@ public class Controller implements android.view.View.OnClickListener, android.vi
                 public void run() {
                     gameState.dumbAIMove();
                     view.invalidate();
+                    Log.d("click", "white moves");
                     gameState.setIsBlackTurn(true);
                 }
-            }, 3000);
+            }, 2000);
         }
 
 

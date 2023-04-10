@@ -242,7 +242,7 @@ public class GameState {
                 diffColorAdj = false;
                 //Check diagonally top right of the piece
                 if (col + 1 != 8 && row - 1 != -1) {
-                    if (board[col + 1][row - 1] == 'w') {
+                    if (board[row - 1][col + 1] == 'w') {
                         diffColorAdj = true;
                     }
                 }
@@ -457,6 +457,7 @@ public class GameState {
                for (int j = 0; j < 8; j++) {
                    if (haveMoved == false && isValidMove(i, j)) {
                        if (board[i][j] == 'e') {
+                           flip(i, j);
                            board[i][j] = 'w';//puts white piece
                            haveMoved =true;
                        }
@@ -571,9 +572,556 @@ public class GameState {
         else
             return false;
         if(isValidMove(y, x)){
+            flip(y, x);
             board[y][x] = c;
             return true;
         }
         return false;
+    }
+
+    /*
+    Method to be used after a valid move is made to flip pieces over
+     */
+    public void flip(int row, int col) {
+        //Flip in all Directions
+        boolean oneOrMore = false;
+        boolean hasBlackPieceEnd = false;
+        boolean hasWhitePieceEnd = false;
+        boolean diffColorAdj = false;
+        boolean isEmpty = false;
+        int i;
+        int j;
+        if (isBlackTurn) {
+            //Check above the piece
+            if (row - 1 != -1) {
+                if (board[row - 1][col] == 'w') {
+                    diffColorAdj = true;
+                }
+            }
+            for (i = row - 1; i > -1; i--) {
+                if (board[i][col] == 'w') {
+                    oneOrMore = true;
+                }
+                if (board[i][col] == 'b') {
+                    hasBlackPieceEnd = true;
+                }
+            }
+            if (oneOrMore && hasBlackPieceEnd && diffColorAdj) {
+                while(!isEmpty) {
+                    for (i = row - 1; i > -1; i--) {
+                        if (board[i][col] == 'w') {
+                            board[i][col] = 'b';
+                        }
+                        if(board[i][col] == 'e' || board[i][col] =='b') {
+                            isEmpty = true;
+                        }
+                        if(i == 0){
+                            isEmpty =true;
+                        }
+                    }
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasBlackPieceEnd = false;
+            diffColorAdj = false;
+            //Check below the piece
+            if (row + 1 != 8) {
+                if (board[row + 1][col] == 'w') {
+                    diffColorAdj = true;
+                }
+            }
+            for (i = row + 1; i < 8; i++) {
+                if (board[i][col] == 'w') {
+                    oneOrMore = true;
+                }
+                if (board[i][col] == 'b') {
+                    hasBlackPieceEnd = true;
+                }
+            }
+            if (oneOrMore && hasBlackPieceEnd && diffColorAdj) {
+                while(!isEmpty) {
+                    for (i = row + 1; i < 8; i++) {
+                        if (board[i][col] == 'w') {
+                            board[i][col] = 'b';
+                        }
+                        if (board[i][col] == 'e' || board[i][col] =='b') {
+                            isEmpty = true;
+                        }
+                        if(i == 7){
+                            isEmpty = true;
+                        }
+                    }
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasBlackPieceEnd = false;
+            diffColorAdj = false;
+            //Check to the left of the piece
+            if (col - 1 != -1) {
+                if (board[row][col - 1] == 'w') {
+                    diffColorAdj = true;
+                }
+            }
+            for (i = col - 1; i > -1; i--) {
+                if (board[row][i] == 'w') {
+                    oneOrMore = true;
+                }
+                if (board[row][i] == 'b') {
+                    hasBlackPieceEnd = true;
+                }
+            }
+            if (oneOrMore && hasBlackPieceEnd && diffColorAdj) {
+                while(!isEmpty) {
+                    for (i = col - 1; i > -1; i--) {
+                        if (board[row][i] == 'w') {
+                            board[row][i] = 'b';
+                        }
+                        if (board[row][i] == 'e' || board[row][i] =='b') {
+                            isEmpty = true;
+                        }
+                        if(i == 0){
+                            isEmpty = true;
+                        }
+                    }
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasBlackPieceEnd = false;
+            diffColorAdj = false;
+            //Check to the right of the piece
+            if (col + 1 != 8) {
+                if (board[row][col + 1] == 'w') {
+                    diffColorAdj = true;
+                }
+            }
+            for (i = col + 1; i < 8; i++) {
+                if (board[row][i] == 'w') {
+                    oneOrMore = true;
+                }
+                if (board[row][i] == 'b') {
+                    hasBlackPieceEnd = true;
+                }
+            }
+            if (oneOrMore && hasBlackPieceEnd && diffColorAdj) {
+                while(!isEmpty) {
+                    for (i = col + 1; i < 8; i++) {
+                        if (board[row][i] == 'w') {
+                            board[row][i] = 'b';
+                        }
+                        if (board[row][i] == 'e' || board[row][i] =='b' || i == 7) {
+                            isEmpty = true;
+                        }
+                    }
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasBlackPieceEnd = false;
+            diffColorAdj = false;
+            //Check diagonally top left of the piece
+            if (col - 1 != -1 && row - 1 != -1) {
+                if (board[row - 1][col - 1] == 'w') {
+                    diffColorAdj = true;
+                }
+            }
+            i = row - 1;
+            j = col - 1;
+            while (i > -1 && j > -1) {
+                if (board[i][j] == 'w') {
+                    oneOrMore = true;
+                }
+                if (board[i][j] == 'b') {
+                    hasBlackPieceEnd = true;
+                }
+                i--;
+                j--;
+            }
+            if (oneOrMore && hasBlackPieceEnd && diffColorAdj) {
+                i = row - 1;
+                j = col - 1;
+                while (i > -1 && j > -1 && !isEmpty) {
+                    if (board[i][j] == 'w') {
+                        board[i][j] = 'b';
+                    }
+                    if (board[i][j] == 'e' ||board[i][j] =='b' || i == 0 || j == 0) {
+                        isEmpty = true;
+                    }
+                    i--;
+                    j--;
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasBlackPieceEnd = false;
+            diffColorAdj = false;
+            //Check diagonally bottom right of the piece
+            if (col + 1 != 8 && row + 1 != 8) {
+                if (board[row + 1][col + 1] == 'w') {
+                    diffColorAdj = true;
+                }
+            }
+            i = row + 1;
+            j = col + 1;
+            while (i < 8 && j < 8) {
+                if (board[i][j] == 'w') {
+                    oneOrMore = true;
+                }
+                if (board[i][j] == 'b') {
+                    hasBlackPieceEnd = true;
+                }
+                i++;
+                j++;
+            }
+            if (oneOrMore && hasBlackPieceEnd && diffColorAdj) {
+                i = row + 1;
+                j = col + 1;
+                while (i < 8 && j < 8 && !isEmpty) {
+                    if (board[i][j] == 'w') {
+                        board[i][j] = 'b';
+                    }
+                    if (board[i][j] == 'e' || board[i][j] =='b' || i == 7 || j ==7) {
+                        isEmpty = true;
+                    }
+                    i++;
+                    j++;
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasBlackPieceEnd = false;
+            diffColorAdj = false;
+            //Check diagonally bottom left of the piece
+            if (col - 1 != -1 && row + 1 != 8) {
+                if (board[row + 1][col - 1] == 'w') {
+                    diffColorAdj = true;
+                }
+            }
+            i = row + 1;
+            j = col - 1;
+            while (i < 8 && j > -1) {
+                if (board[i][j] == 'w') {
+                    oneOrMore = true;
+                }
+                if (board[i][j] == 'b') {
+                    hasBlackPieceEnd = true;
+                }
+                i++;
+                j--;
+            }
+            if (oneOrMore && hasBlackPieceEnd && diffColorAdj) {
+                i = row + 1;
+                j = col - 1;
+                while (i < 8 && j > -1 && !isEmpty) {
+                    if (board[i][j] == 'w') {
+                        board[i][j] = 'b';
+                    }
+                    if (board[i][j] == 'e' || board[i][j] =='b' || i == 7 || j == 0) {
+                        isEmpty = true;
+                    }
+                    i++;
+                    j--;
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasBlackPieceEnd = false;
+            diffColorAdj = false;
+            //Check diagonally top right of the piece
+            if (col + 1 != 8 && row - 1 != -1) {
+                if (board[row - 1][col + 1] == 'w') {
+                    diffColorAdj = true;
+                }
+            }
+            i = row - 1;
+            j = col + 1;
+            while (i > -1 && j < 8) {
+                if (board[i][j] == 'w') {
+                    oneOrMore = true;
+                }
+                if (board[i][j] == 'b') {
+                    hasBlackPieceEnd = true;
+                }
+                i--;
+                j++;
+            }
+            if (oneOrMore && hasBlackPieceEnd && diffColorAdj) {
+                i = row - 1;
+                j = col + 1;
+                while (i > -1 && j < 8 && !isEmpty) {
+                    if (board[i][j] == 'w') {
+                        board[i][j] = 'b';
+                    }
+                    if (board[i][j] == 'e' || board[i][j] =='b' || i == 0 || j == 7) {
+                        isEmpty = true;
+                    }
+                    i--;
+                    j++;
+                }
+            }
+        } else { //If it is whites turn
+//Check above the piece
+            if (row - 1 != -1) {
+                if (board[row - 1][col] == 'b') {
+                    diffColorAdj = true;
+                }
+            }
+            for (i = row - 1; i > -1; i--) {
+                if (board[i][col] == 'b') {
+                    oneOrMore = true;
+                }
+                if (board[i][col] == 'w') {
+                    hasWhitePieceEnd = true;
+                }
+            }
+            if (oneOrMore && hasWhitePieceEnd && diffColorAdj) {
+                while(!isEmpty) {
+                    for (i = row - 1; i > -1; i--) {
+                        if (board[i][col] == 'b') {
+                            board[i][col] = 'w';
+                        }
+                        if (board[i][col] == 'e' || board[i][col] =='w' || i == 0) {
+                            isEmpty = true;
+                        }
+                    }
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasWhitePieceEnd = false;
+            diffColorAdj = false;
+            //Check below the piece
+            if (row + 1 != 8) {
+                if (board[row + 1][col] == 'b') {
+                    diffColorAdj = true;
+                }
+            }
+            for (i = row + 1; i < 8; i++) {
+                if (board[i][col] == 'b') {
+                    oneOrMore = true;
+                }
+                if (board[i][col] == 'w') {
+                    hasWhitePieceEnd = true;
+                }
+            }
+            if (oneOrMore && hasWhitePieceEnd && diffColorAdj) {
+                while(!isEmpty) {
+                    for (i = row + 1; i < 8; i++) {
+                        if (board[i][col] == 'b') {
+                            board[i][col] = 'w';
+                        }
+                        if (board[i][col] == 'e' || board[i][col] =='w' || i == 7) {
+                            isEmpty = true;
+                        }
+                    }
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasWhitePieceEnd = false;
+            diffColorAdj = false;
+            //Check to the left of the piece
+            if (col - 1 != -1) {
+                if (board[row][col - 1] == 'b') {
+                    diffColorAdj = true;
+                }
+            }
+            for (i = col - 1; i > -1; i--) {
+                if (board[row][i] == 'b') {
+                    oneOrMore = true;
+                }
+                if (board[row][i] == 'w') {
+                    hasWhitePieceEnd = true;
+                }
+            }
+            if (oneOrMore && hasWhitePieceEnd && diffColorAdj) {
+                while(!isEmpty) {
+                    for (i = col - 1; i > -1; i--) {
+                        if (board[row][i] == 'b') {
+                            board[row][i] = 'w';
+                        }
+                        if (board[row][i] == 'e' || board[row][i] =='w' || i == 0) {
+                            isEmpty = true;
+                        }
+                    }
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasWhitePieceEnd = false;
+            diffColorAdj = false;
+            //Check to the right of the piece
+            if (col + 1 != 8) {
+                if (board[row][col + 1] == 'b') {
+                    diffColorAdj = true;
+                }
+            }
+            for (i = col + 1; i < 8; i++) {
+                if (board[row][i] == 'b') {
+                    oneOrMore = true;
+                }
+                if (board[row][i] == 'w') {
+                    hasWhitePieceEnd = true;
+                }
+            }
+            if (oneOrMore && hasWhitePieceEnd && diffColorAdj) {
+                while(!isEmpty) {
+                    for (i = col + 1; i < 8; i++) {
+
+                        if (board[row][i] == 'b') {
+                            board[row][i] = 'w';
+                        }
+                        if (board[row][i] == 'e' || board[row][i] =='w' || i == 7) {
+                            isEmpty = true;
+                        }
+                    }
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasWhitePieceEnd = false;
+            diffColorAdj = false;
+            //Check diagonally top left of the piece
+            if (col - 1 != -1 && row - 1 != -1) {
+                if (board[row - 1][col - 1] == 'b') {
+                    diffColorAdj = true;
+                }
+            }
+            i = row - 1;
+            j = col - 1;
+            while (i > -1 && j > -1) {
+                if (board[i][j] == 'b') {
+                    oneOrMore = true;
+                }
+                if (board[i][j] == 'w') {
+                    hasWhitePieceEnd = true;
+                }
+                i--;
+                j--;
+            }
+            if (oneOrMore && hasWhitePieceEnd && diffColorAdj) {
+                i = row - 1;
+                j = col - 1;
+                while (i > -1 && j > -1 && !isEmpty) {
+                    if (board[i][j] == 'b') {
+                        board[i][j] = 'w';
+                    }
+                    if (board[i][j] == 'e' || board[i][j] =='w' || i == 0 || j == 0) {
+                        isEmpty = true;
+                    }
+                    i--;
+                    j--;
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasWhitePieceEnd = false;
+            //Check diagonally bottom right of the piece
+            if (col + 1 != 8 && row + 1 != 8) {
+                if (board[row + 1][col + 1] == 'b') {
+                    diffColorAdj = true;
+                }
+            }
+            i = row + 1;
+            j = col + 1;
+            while (i < 8 && j < 8) {
+                if (board[i][j] == 'b') {
+                    oneOrMore = true;
+                }
+                if (board[i][j] == 'w') {
+                    hasWhitePieceEnd = true;
+                }
+                i++;
+                j++;
+            }
+            if (oneOrMore && hasWhitePieceEnd && diffColorAdj) {
+                i = row + 1;
+                j = col + 1;
+                while (i < 8 && j < 8 && !isEmpty) {
+                    if (board[i][j] == 'b') {
+                        board[i][j] = 'w';
+                    }
+                    if (board[i][j] == 'e' || board[i][j] =='w' || j == 7 || i == 7) {
+                        isEmpty = true;
+                    }
+                    i++;
+                    j++;
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasWhitePieceEnd = false;
+            diffColorAdj = false;
+            //Check diagonally bottom left of the piece
+            if (col - 1 != -1 && row + 1 != 8) {
+                if (board[row + 1][col - 1] == 'b') {
+                    diffColorAdj = true;
+                }
+            }
+            i = row + 1;
+            j = col - 1;
+            while (i < 8 && j > -1) {
+                if (board[i][j] == 'b') {
+                    oneOrMore = true;
+                }
+                if (board[i][j] == 'w') {
+                    hasWhitePieceEnd = true;
+                }
+                i++;
+                j--;
+            }
+            if (oneOrMore && hasWhitePieceEnd && diffColorAdj) {
+                i = row + 1;
+                j = col - 1;
+                while (i < 8 && j > -1 && !isEmpty) {
+                    if (board[i][j] == 'b') {
+                        board[i][j] = 'w';
+                    }
+                    if (board[i][j] == 'e' || board[i][j] =='w' || i == 7 || j == 0) {
+                        isEmpty = true;
+                    }
+                    i++;
+                    j--;
+                }
+            }
+            isEmpty = false;
+            oneOrMore = false;
+            hasWhitePieceEnd = false;
+            diffColorAdj = false;
+            //Check diagonally top right of the piece
+            if (col + 1 != 8 && row - 1 != -1) {
+                if (board[row - 1][col + 1] == 'b') {
+                    diffColorAdj = true;
+                }
+            }
+            i = row - 1;
+            j = col + 1;
+            while (i > -1 && j < 8) {
+                if (board[i][j] == 'b') {
+                    oneOrMore = true;
+                }
+                if (board[i][j] == 'w') {
+                    hasWhitePieceEnd = true;
+                }
+                i--;
+                j++;
+            }
+            if (oneOrMore && hasWhitePieceEnd && diffColorAdj) {
+                i = row - 1;
+                j = col + 1;
+                while (i > -1 && j < 8 && !isEmpty) {
+                    if (board[i][j] == 'b') {
+                        board[i][j] = 'w';
+                    }
+                    if (board[i][j] == 'e' || board[i][j] =='w' || j == 7 || i == 0) {
+                        isEmpty = true;
+                    }
+                    i--;
+                    j++;
+                }
+            }
+        }
     }
 }

@@ -77,302 +77,86 @@ public class GameState {
                 + "/nIs white's turn: " + !isBlackTurn + "/nIs game over: " + gameOver + s;
     }
 
-    public boolean isValidMove(int row, int col) {
-        if (!(board[row][col] == 'e')) {
+    public boolean isValidMove(int row, int col){
+        if(!(board[row][col] == 'e')){
             return false;
         }
         else {
-            boolean isEmpty = false;
-            int i;
-            int j;
-            if (isBlackTurn) {
-                //Check above the piece
-                if (row - 1 != -1) {
-                    //Check if space in direction is opposite color
-                    if (board[row - 1][col] == 'w') {
-                        while(!isEmpty) { //Until an empty space or end of board is reached, go through the direction on board
-                            for (i = row - 1; i > -1; i--) {
-                                if(board[i][col] == 'b' && !isEmpty){ //If at some point, a space in the direction has a black piece, there is a valid move for the direction
-                                    return true;
-                                }
-                                else if(board[i][col] == 'e' || i == 0){ //Stop at empty space or end of board
-                                    isEmpty = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
+            boolean oneOrMore = false;
+            boolean hasBlackPieceEnd = false;
+            boolean hasWhitePieceEnd = false;
+            if(isBlackTurn){
                 //Check below the piece
-                if (row + 1 != 8) {
-                    if (board[row + 1][col] == 'w') {
-                        while(!isEmpty) {
-                            for (i = row + 1; i < 8; i++) {
-                                if (board[i][col] == 'b'&& !isEmpty) {
-                                    return true;
-                                }
-                                else if (board[i][col] == 'e' || i == 7) {
-                                    isEmpty = true;
-                                }
-                            }
-                        }
+                if(row-1 != -1){
+                    if(board[row-1][col] == 'b'){
+                        return false;
                     }
                 }
-                isEmpty = false;
+                for(int i = row-1; row > -1; i--){
+                    if(board[i][col] == 'w'){
+                        oneOrMore = true;
+                    }
+                    if(board[i][col] == 'b'){
+                        hasBlackPieceEnd = true;
+                    }
+                }
+                if(oneOrMore && hasBlackPieceEnd){
+                    return true;
+                }
+                //Check above the piece
+                if(row+1 != 8){
+                    if(board[row+1][col] == 'b'){
+                        return false;
+                    }
+                }
+                for(int i = row+1; row < 8; i++){
+                    if(board[i][col] == 'w'){
+                        oneOrMore = true;
+                    }
+                    if(board[i][col] == 'b'){
+                        hasBlackPieceEnd = true;
+                    }
+                }
+                if(oneOrMore && hasBlackPieceEnd){
+                    return true;
+                }
                 //Check to the left of the piece
-                if (col - 1 != -1) {
-                    if (board[row][col - 1] == 'w') {
-                        while(!isEmpty) {
-                            for (i = col - 1; i > -1; i--) {
-                                if (board[row][i] == 'b'&& !isEmpty) {
-                                    return true;
-                                }
-                                else if (board[row][i] == 'e' || i ==0 ) {
-                                    isEmpty = true;
-                                }
-                            }
-                        }
+                if(col-1 != -1){
+                    if(board[row][col-1] == 'b'){
+                        return false;
                     }
                 }
-                isEmpty = false;
+                for(int i = col-1; col > -1; i--){
+                    if(board[row][i] == 'w'){
+                        oneOrMore = true;
+                    }
+                    if(board[row][i] == 'b'){
+                        hasBlackPieceEnd = true;
+                    }
+                }
+                if(oneOrMore && hasBlackPieceEnd){
+                    return true;
+                }
                 //Check to the right of the piece
-                if (col + 1 != 8) {
-                    if (board[row][col + 1] == 'w') {
-                       while(!isEmpty){
-                           for (i = col + 1; i < 8; i++) {
-                               if (board[row][i] == 'b'&& !isEmpty) {
-                                   return true;
-                               }
-                               else if(board[row][i] == 'e' || i == 7){
-                                   isEmpty = true;
-                               }
-                           }
-                       }
+                if(col+1 != 8){
+                    if(board[row][col+1] == 'b'){
+                        return false;
                     }
                 }
-                isEmpty = false;
-                //Check diagonally top left of the piece
-                if (col - 1 != -1 && row - 1 != -1) {
-                    if (board[row - 1][col - 1] == 'w') {
-                        i = row - 1;
-                        j = col - 1;
-                        while(!isEmpty){
-                            while (i > -1 && j > -1) {
-                                if (board[i][j] == 'b' && !isEmpty) {
-                                    return true;
-                                }
-                                else if(board[i][j] == 'e' || i == 0 || j ==0){
-                                    isEmpty = true;
-                                }
-                                i--;
-                                j--;
-                            }
-                        }
+                for(int i = col+1; col < 8; i++){
+                    if(board[row][i] == 'w'){
+                        oneOrMore = true;
+                    }
+                    if(board[row][i] == 'b'){
+                        hasBlackPieceEnd = true;
                     }
                 }
-                isEmpty = false;
-                //Check diagonally bottom right of the piece
-                if (col + 1 != 8 && row + 1 != 8) {
-                    if (board[row + 1][col + 1] == 'w') {
-                        i = row + 1;
-                        j = col + 1;
-                        while (i < 8 && j < 8 && !isEmpty) {
-                                if (board[i][j] == 'b' && !isEmpty) {
-                                    return true;
-                                }
-                                else if(board[i][j] == 'e' || i == 7 || j ==7){
-                                    isEmpty = true;
-                                }
-                                i++;
-                                j++;
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally bottom left of the piece
-                if (col - 1 != -1 && row + 1 != 8) {
-                    if (board[row + 1][col - 1] == 'w') {
-                        i = row + 1;
-                        j = col - 1;
-                        while (i < 8 && j > -1 && !isEmpty) {
-                                if (board[i][j] == 'b' && !isEmpty) {
-                                    return true;
-                                }
-                                else if(board[i][j] == 'e' || i == 7 || j == 0){
-                                    isEmpty = true;
-                                }
-                                i++;
-                                j--;
-                        }
-
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally top right of the piece
-                if (col + 1 != 8 && row - 1 != -1) {
-                    if (board[row - 1][col + 1] == 'w') {
-                        i = row - 1;
-                        j = col + 1;
-                            while (i > -1 && j < 8 && !isEmpty) {
-                                if (board[i][j] == 'b' && !isEmpty) {
-                                    return true;
-                                }
-                                else if(board[i][j] == 'e' || i == 0 || j == 7){
-                                    isEmpty = true;
-                                }
-                                i--;
-                                j++;
-                            }
-
-                    }
+                if(oneOrMore && hasBlackPieceEnd){
+                    return true;
                 }
             }
-            else {
-                //If it is whites turn
-                //Check above the piece
-                if (row - 1 != -1) {
-                    //Check if space in direction is opposite color
-                    if (board[row - 1][col] == 'b') {
-                        while(!isEmpty) { //Until an empty space is reached, go through the direction on board
-                            for (i = row - 1; i > -1; i--) {
-                                if(board[i][col] == 'w'&& !isEmpty){ //If at some point, a space in the direction has a black piece, there is a valid move for the direction
-                                    return true;
-                                }
-                                else if(board[i][col] == 'e' || i == 0){ //Stop at empty space
-                                    isEmpty = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check below the piece
-                if (row + 1 != 8) {
-                    if (board[row + 1][col] == 'b') {
-                        while(!isEmpty) {
-                            for (i = row + 1; i < 8; i++) {
-                                if (board[i][col] == 'w'&& !isEmpty) {
-                                    return true;
-                                }
-                                else if (board[i][col] == 'e' || i == 7) {
-                                    isEmpty = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check to the left of the piece
-                if (col - 1 != -1) {
-                    if (board[row][col - 1] == 'b') {
-                        while(!isEmpty) {
-                            for (i = col - 1; i > -1; i--) {
-                                if (board[row][i] == 'w'&& !isEmpty) {
-                                    return true;
-                                }
-                                else if (board[row][i] == 'e' || i == 0) {
-                                    isEmpty = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check to the right of the piece
-                if (col + 1 != 8) {
-                    if (board[row][col + 1] == 'b') {
-                        while(!isEmpty){
-                            for (i = col + 1; i < 8; i++) {
-                                if (board[row][i] == 'w'&& !isEmpty) {
-                                    return true;
-                                }
-                                else if(board[row][i] == 'e' || i == 7){
-                                    isEmpty = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally top left of the piece
-                if (col - 1 != -1 && row - 1 != -1) {
-                    if (board[row - 1][col - 1] == 'b') {
-                        i = row - 1;
-                        j = col - 1;
-                            while (i > -1 && j > -1 && !isEmpty) {
-                                if (board[i][j] == 'w' && !isEmpty) {
-                                    return true;
-                                }
-                                else if(board[i][j] == 'e' || i== 8 || j ==0){
-                                    isEmpty = true;
-                                }
-                                i--;
-                                j--;
-                            }
+            else{}
 
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally bottom right of the piece
-                if (col + 1 != 8 && row + 1 != 8) {
-                    if (board[row + 1][col + 1] == 'b') {
-                        i = row + 1;
-                        j = col + 1;
-
-                            while (i < 8 && j < 8 && !isEmpty) {
-                                if (board[i][j] == 'w' && !isEmpty) {
-                                    return true;
-                                }
-                                else if(board[i][j] == 'e' || i== 7 || j ==7){
-                                    isEmpty = true;
-                                }
-                                i++;
-                                j++;
-                            }
-
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally bottom left of the piece
-                if (col - 1 != -1 && row + 1 != 8) {
-                    if (board[row + 1][col - 1] == 'b') {
-                        i = row + 1;
-                        j = col - 1;
-
-                            while (i < 8 && j > -1 && !isEmpty) {
-                                if (board[i][j] == 'w' && !isEmpty) {
-                                    return true;
-                                }
-                                else if(board[i][j] == 'e' || i==7 || j ==0){
-                                    isEmpty = true;
-                                }
-                                i++;
-                                j--;
-                            }
-
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally top right of the piece
-                if (col + 1 != 8 && row - 1 != -1) {
-                    if (board[row - 1][col + 1] == 'b') {
-                        i = row - 1;
-                        j = col + 1;
-
-                            while (i > -1 && j < 8 && !isEmpty) {
-                                if (board[i][j] == 'w' && !isEmpty) {
-                                    return true;
-                                }
-                                else if(board[i][j] == 'e' || i ==0 || j==7){
-                                    isEmpty = true;
-                                }
-                                i--;
-                                j++;
-                            }
-
-                    }
-                }
-            }
         }
         return false;
     }
@@ -399,11 +183,17 @@ public class GameState {
             // Then place piece
            for (int i = 0; i<8; i++) {
                for (int j = 0; j < 8; j++) {
-                   if (haveMoved == false && isValidMove(i, j)) {
-                           flip(i, j);
+                   if (haveMoved == false) {
+                       if (board[i][j] == 'e') {
                            board[i][j] = 'w';//puts white piece
-                            haveMoved = true;
-                           break;
+                           haveMoved =true;
+                       }
+                       else{
+                           haveMoved = false;
+                       }
+                   }
+                   else if (haveMoved == true) {
+
                    }
                }
            }
@@ -470,494 +260,49 @@ public class GameState {
     public boolean dumbMakeMove(char c){
         int x =0;
         int y =0;
-        if(touchX > 400 && touchX < 500){
-            x = 0;
-        } else if (touchX < 600) {
-            x = 1;
-        }else if (touchX < 700) {
-            x = 2;
-        }else if (touchX < 800) {
-            x = 3;
-        }else if (touchX < 900) {
-            x = 4;
-        }else if (touchX < 1000) {
-            x = 5;
-        }else if (touchX < 1100) {
-            x = 6;
-        } else if (touchX < 1200) {
-            x = 7;
-        }
-        else
+        //if its out of bounds return false
+        if (touchX < 400 || touchX > 1200 || touchY < 100 || touchY > 900) {
             return false;
-        if(touchY > 100 && touchY < 200){
-            y = 0;
-        } else if (touchY < 300) {
-            y = 1;
-        }else if (touchY < 400) {
-            y = 2;
-        }else if (touchY < 500) {
-            y = 3;
-        }else if (touchY < 600) {
-            y = 4;
-        }else if (touchY < 700) {
-            y = 5;
-        }else if (touchY < 800) {
-            y = 6;
-        } else if (touchY < 900) {
-            y = 7;
         }
-        else
-            return false;
-        if(isValidMove(y, x)){
-            flip(y, x);
+        //x coordinates
+            if (touchX > 400 && touchX < 500) {
+                x = 0;
+            } else if (touchX < 600) {
+                x = 1;
+            } else if (touchX < 700) {
+                x = 2;
+            } else if (touchX < 800) {
+                x = 3;
+            } else if (touchX < 900) {
+                x = 4;
+            } else if (touchX < 1000) {
+                x = 5;
+            } else if (touchX < 1100) {
+                x = 6;
+            } else if (touchX < 1200) {
+                x = 7;
+            }
+            //Y coordinates
+            if (touchY > 100 && touchY < 200) {
+                y = 0;
+            } else if (touchY < 300) {
+                y = 1;
+            } else if (touchY < 400) {
+                y = 2;
+            } else if (touchY < 500) {
+                y = 3;
+            } else if (touchY < 600) {
+                y = 4;
+            } else if (touchY < 700) {
+                y = 5;
+            } else if (touchY < 800) {
+                y = 6;
+            } else if (touchY < 900) {
+                y = 7;
+            }
             board[y][x] = c;
             return true;
-        }
-        return false;
-    }
 
-    /*
-    Method to be used after a valid move is made to flip pieces over
-     */
-    public void flip(int row, int col) {
-        if (!(board[row][col] == 'e')) {
-            // false;
-        }
-        else {
-            boolean isEmpty = false;
-            int i;
-            int j;
-            if (isBlackTurn) {
-                //Check above the piece
-                if (row - 1 != -1) {
-                    //Check if space in direction is opposite color
-                    if (board[row - 1][col] == 'w') {
-                        while(!isEmpty) { //Until an empty space or end of board is reached, go through the direction on board
-                            for (i = row - 1; i > -1; i--) {
-                                if(board[i][col] == 'b'){ //If at some point, a space in the direction has a black piece, there is a valid move for the direction
-                                    for(int x = row -1; x > i; x--){
-                                        if(board[x][col] == 'w' && !isEmpty){
-                                            board[x][col] = 'b';
-                                        }
-                                    }
-                                    isEmpty = true;
-                                }
-                                else if(board[i][col] == 'e' || i == 0){ //Stop at empty space or end of board
-                                    isEmpty = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check below the piece
-                if (row + 1 != 8) {
-                    if (board[row + 1][col] == 'w') {
-                        while(!isEmpty) {
-                            for (i = row + 1; i < 8; i++) {
-                                if (board[i][col] == 'b') {
-                                    for(int x = row +1; x < i; x++){
-                                        if(board[x][col] == 'w' && !isEmpty){
-                                            board[x][col] = 'b';
-                                        }
-                                    }
-                                    isEmpty = true;
-                                }
-                                else if (board[i][col] == 'e' || i == 7) {
-                                    isEmpty = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check to the left of the piece
-                if (col - 1 != -1) {
-                    if (board[row][col - 1] == 'w') {
-                        while(!isEmpty) {
-                            for (i = col - 1; i > -1; i--) {
-                                if (board[row][i] == 'b') {
-                                    for(int x = col -1; x > i; x--){
-                                        if(board[row][x] == 'w'&& !isEmpty){
-                                            board[row][x] = 'b';
-                                        }
-                                    }
-                                    isEmpty = true;
-                                }
-                                else if (board[row][i] == 'e' || i ==0 ) {
-                                    isEmpty = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check to the right of the piece
-                if (col + 1 != 8) {
-                    if (board[row][col + 1] == 'w') {
-                        while(!isEmpty){
-                            for (i = col + 1; i < 8; i++) {
-                                if (board[row][i] == 'b') {
-                                    for(int x = col +1; x < i; x++){
-                                        if(board[row][x] == 'w'&& !isEmpty){
-                                            board[row][x] = 'b';
-                                        }
-                                    }
-                                    isEmpty = true;
-                                }
-                                else if(board[row][i] == 'e' || i == 7){
-                                    isEmpty = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally top left of the piece
-                if (col - 1 != -1 && row - 1 != -1) {
-                    if (board[row - 1][col - 1] == 'w') {
-                        i = row - 1;
-                        j = col - 1;
-                        while(!isEmpty){
-                            while (i > -1 && j > -1) {
-                                if (board[i][j] == 'b') {
-                                    // true;
-                                    int x = row -1;
-                                    int y = col -1;
-                                    while(!isEmpty) {
-                                        while (x > i && y > j) {
-                                            if (board[x][y] == 'w') {
-                                                board[x][y] = 'b';
-                                            }
-                                            x--;
-                                            y--;
-                                        }
-                                        isEmpty = true;
-                                    }
-                                }
-                                else if(board[i][j] == 'e' || i == 0 || j ==0){
-                                    isEmpty = true;
-                                }
-                                i--;
-                                j--;
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally bottom right of the piece
-                if (col + 1 != 8 && row + 1 != 8) {
-                    if (board[row + 1][col + 1] == 'w') {
-                        i = row + 1;
-                        j = col + 1;
-                        while (i < 8 && j < 8 && !isEmpty) {
-                            if (board[i][j] == 'b') {
-                                // true;
-                                int x = row +1;
-                                int y = col +1;
-                                while(!isEmpty) {
-                                    while (x < i && y < j) {
-                                        if (board[x][y] == 'w') {
-                                            board[x][y] = 'b';
-                                        }
-                                        x++;
-                                        y++;
-
-                                    }
-                                    isEmpty = true;
-                                }
-                            }
-                            else if(board[i][j] == 'e' || i == 7 || j ==7){
-                                isEmpty = true;
-                            }
-                            i++;
-                            j++;
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally bottom left of the piece
-                if (col - 1 != -1 && row + 1 != 8) {
-                    if (board[row + 1][col - 1] == 'w') {
-                        i = row + 1;
-                        j = col - 1;
-                        while (i < 8 && j > -1 && !isEmpty) {
-                            if (board[i][j] == 'b') {
-                                // true;
-                                int x = row +1;
-                                int y = col -1;
-                                while(!isEmpty) {
-                                    while (x < i && y > j) {
-                                        if (board[x][y] == 'w') {
-                                            board[x][y] = 'b';
-                                        }
-                                        x++;
-                                        y--;
-                                    }
-                                    isEmpty = true;
-                                }
-                            }
-                            else if(board[i][j] == 'e' || i == 7 || j == 0){
-                                isEmpty = true;
-                            }
-                            i++;
-                            j--;
-                        }
-
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally top right of the piece
-                if (col + 1 != 8 && row - 1 != -1) {
-                    if (board[row - 1][col + 1] == 'w') {
-                        i = row - 1;
-                        j = col + 1;
-                        while (i > -1 && j < 8 && !isEmpty) {
-                            if (board[i][j] == 'b') {
-                                // true;
-                                int x = row -1;
-                                int y = col +1;
-                                while(!isEmpty) {
-                                    while (x > i && y < j) {
-                                        if (board[x][y] == 'w') {
-                                            board[x][y] = 'b';
-                                        }
-                                        x--;
-                                        y++;
-                                    }
-                                    isEmpty = true;
-                                }
-                            }
-                            else if(board[i][j] == 'e' || i == 0 || j == 7){
-                                isEmpty = true;
-                            }
-                            i--;
-                            j++;
-                        }
-
-                    }
-                }
-            }
-            else {
-                //If it is whites turn
-                //Check above the piece
-                if (row - 1 != -1) {
-                    //Check if space in direction is opposite color
-                    if (board[row - 1][col] == 'b') {
-                        while(!isEmpty) { //Until an empty space is reached, go through the direction on board
-                            for (i = row - 1; i > -1; i--) {
-                                if(board[i][col] == 'w'){ //If at some point, a space in the direction has a black piece, there is a valid move for the direction
-                                    // true;
-                                    for(int x = row -1; x > i; x--){
-                                        if(board[x][col] == 'b' && !isEmpty){
-                                            board[x][col] = 'w';
-                                        }
-                                    }
-                                    isEmpty = true;
-                                }
-                                else if(board[i][col] == 'e' || i == 0){ //Stop at empty space
-                                    isEmpty = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check below the piece
-                if (row + 1 != 8) {
-                    if (board[row + 1][col] == 'b') {
-                        while(!isEmpty) {
-                            for (i = row + 1; i < 8; i++) {
-                                if (board[i][col] == 'w') {
-                                    // true;
-                                    for(int x = row +1; x < i; x++){
-                                        if(board[x][col] == 'b'&& !isEmpty){
-                                            board[x][col] = 'w';
-                                        }
-                                    }
-                                    isEmpty = true;
-                                }
-                                else if (board[i][col] == 'e' || i == 7) {
-                                    isEmpty = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check to the left of the piece
-                if (col - 1 != -1) {
-                    if (board[row][col - 1] == 'b') {
-                        while(!isEmpty) {
-                            for (i = col - 1; i > -1; i--) {
-                                if (board[row][i] == 'w') {
-                                    // true;
-                                    for(int x = col -1; x > i; x--){
-                                        if(board[row][x] == 'b'&& !isEmpty){
-                                            board[row][x] = 'w';
-                                        }
-                                    }
-                                    isEmpty = true;
-                                }
-                                else if (board[row][i] == 'e' || i == 0) {
-                                    isEmpty = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check to the right of the piece
-                if (col + 1 != 8) {
-                    if (board[row][col + 1] == 'b') {
-                        while(!isEmpty){
-                            for (i = col + 1; i < 8; i++) {
-                                if (board[row][i] == 'w') {
-                                    // true;
-                                    for(int x = col +1; x < i; x++){
-                                        if(board[row][x] == 'b'&& !isEmpty){
-                                            board[row][x] = 'w';
-                                        }
-                                    }
-                                    isEmpty = true;
-
-                                }
-                                else if(board[row][i] == 'e' || i == 7){
-                                    isEmpty = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally top left of the piece
-                if (col - 1 != -1 && row - 1 != -1) {
-                    if (board[row - 1][col - 1] == 'b') {
-                        i = row - 1;
-                        j = col - 1;
-                        while (i > -1 && j > -1 && !isEmpty) {
-                            if (board[i][j] == 'w') {
-                                // true;
-                                int x = row -1;
-                                int y = col -1;
-                                while(!isEmpty) {
-                                    while (x > i && y > j) {
-                                        if (board[x][y] == 'b') {
-                                            board[x][y] = 'w';
-                                        }
-                                        x--;
-                                        y--;
-                                    }
-                                    isEmpty = true;
-                                }
-                            }
-                            else if(board[i][j] == 'e' || i== 8 || j ==0){
-                                isEmpty = true;
-                            }
-                            i--;
-                            j--;
-                        }
-
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally bottom right of the piece
-                if (col + 1 != 8 && row + 1 != 8) {
-                    if (board[row + 1][col + 1] == 'b') {
-                        i = row + 1;
-                        j = col + 1;
-
-                        while (i < 8 && j < 8 && !isEmpty) {
-                            if (board[i][j] == 'w') {
-                                // true;
-                                int x = row +1;
-                                int y = col +1;
-                                while(!isEmpty) {
-                                    while (x < i && y < j) {
-                                        if (board[x][y] == 'b') {
-                                            board[x][y] = 'w';
-                                        }
-                                        x++;
-                                        y++;
-                                    }
-                                    isEmpty = true;
-                                }
-                            }
-                            else if(board[i][j] == 'e' || i== 7 || j ==7){
-                                isEmpty = true;
-                            }
-                            i++;
-                            j++;
-                        }
-
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally bottom left of the piece
-                if (col - 1 != -1 && row + 1 != 8) {
-                    if (board[row + 1][col - 1] == 'b') {
-                        i = row + 1;
-                        j = col - 1;
-
-                        while (i < 8 && j > -1 && !isEmpty) {
-                            if (board[i][j] == 'w') {
-                                // true;
-                                int x = row +1;
-                                int y = col -1;
-                                while(!isEmpty) {
-                                    while (x < i && y > j) {
-                                        if (board[x][y] == 'b') {
-                                            board[x][y] = 'w';
-                                        }
-                                        x++;
-                                        y--;
-                                    }
-                                    isEmpty = true;
-                                }
-                            }
-                            else if(board[i][j] == 'e' || i==7 || j ==0){
-                                isEmpty = true;
-                            }
-                            i++;
-                            j--;
-                        }
-
-                    }
-                }
-                isEmpty = false;
-                //Check diagonally top right of the piece
-                if (col + 1 != 8 && row - 1 != -1) {
-                    if (board[row - 1][col + 1] == 'b') {
-                        i = row - 1;
-                        j = col + 1;
-
-                        while (i > -1 && j < 8 && !isEmpty) {
-                            if (board[i][j] == 'w') {
-                                // true;
-                                int x = row -1;
-                                int y = col +1;
-                                while(!isEmpty) {
-                                    while (x > i && y < j) {
-                                        if (board[x][y] == 'b') {
-                                            board[x][y] = 'w';
-                                        }
-                                        x--;
-                                        y++;
-                                    }
-                                    isEmpty = true;
-                                }
-                            }
-                            else if(board[i][j] == 'e' || i ==0 || j==7){
-                                isEmpty = true;
-                            }
-                            i--;
-                            j++;
-                        }
-
-                    }
-                }
-            }
-        }
 
     }
 }

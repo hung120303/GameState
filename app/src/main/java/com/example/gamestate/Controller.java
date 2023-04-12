@@ -23,6 +23,29 @@ public class Controller implements android.view.View.OnClickListener, android.vi
         gameState.touchX = motionEvent.getX();
         gameState.touchY = motionEvent.getY();
         view.invalidate();
+        if(gameState.homeScreen){
+            if(!gameState.AIGame) {
+                if (gameState.touchX >= 525 && gameState.touchX <= 725 && gameState.touchY >= 600 && gameState.touchY <= 675) {
+                    gameState.humanGame = true;
+                    gameState.homeScreen = false;
+                    view.invalidate();
+                } else if (gameState.touchX >= 875 && gameState.touchX <= 1075 && gameState.touchY >= 600 && gameState.touchY <= 675) {
+                    gameState.AIGame = true;
+                    view.invalidate();
+                }
+            }
+            else{
+                if (gameState.touchX >= 525 && gameState.touchX <= 725 && gameState.touchY >= 600 && gameState.touchY <= 675) {
+                    gameState.homeScreen = false;
+                    gameState.isDumb = true;
+                    view.invalidate();
+                } else if (gameState.touchX >= 875 && gameState.touchX <= 1075 && gameState.touchY >= 600 && gameState.touchY <= 675) {
+                    gameState.homeScreen = false;
+                    gameState.isDumb = false;
+                    view.invalidate();
+                }
+            }
+        }
         if(gameState.dumbMakeMove('b')){
             view.invalidate();
             Log.d("click", "black moves");

@@ -4,6 +4,7 @@ package com.example.gamestate;
 
 public class GameState {
 
+    public boolean homeScreen = true;
     public int numBlackPieces = 2;
     public int numWhitePieces = 2;
 
@@ -12,6 +13,10 @@ public class GameState {
     public double touchY;
     public boolean isBlackTurn = true;
     public boolean gameOver = false;
+
+    public boolean humanGame = false;
+    public boolean AIGame = false;
+    public boolean isDumb = false;
 
     char[][] board = new char[8][8];
     // black piece = 'b'

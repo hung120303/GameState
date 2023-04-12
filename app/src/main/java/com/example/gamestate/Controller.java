@@ -46,33 +46,45 @@ public class Controller implements android.view.View.OnClickListener, android.vi
                 }
             }
         }
-        if(gameState.dumbMakeMove('b')){
-            view.invalidate();
-            Log.d("click", "black moves");
-            gameState.setIsBlackTurn(false);
 
-            //White AI move
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (!gameState.isDumb) {
-                        gameState.godAIMove();
+
+            if(gameState.humanGame) {
+                if (gameState.isBlackTurn) {
+                    if (gameState.dumbMakeMove('b')) {
+                        Log.d("click", "black moves");
+                        gameState.setIsBlackTurn(false);
                     }
-                    else {
-                        gameState.dumbAIMove();
+                } else {
+                    if (gameState.dumbMakeMove('w')) {
+                        Log.d("click", "white moves");
+                        gameState.setIsBlackTurn(true);
                     }
-                    view.invalidate();
-                    Log.d("click", "white moves");
-                    gameState.setIsBlackTurn(true);
                 }
-            }, 2000);
-        }
+            }
+            else if(gameState.AIGame) {
+                if (gameState.dumbMakeMove('b')) {
+                    Log.d("click", "black moves");
+                    gameState.setIsBlackTurn(false);
 
+                    //White AI move
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!gameState.isDumb) {
+                                gameState.godAIMove();
+                            } else {
+                                gameState.dumbAIMove();
+                            }
+                            view.invalidate();
+                            Log.d("click", "white moves");
+                            gameState.setIsBlackTurn(true);
+                        }
+                    }, 2000);
+                }
+            }
+        return false;    }
 
-
-        return false;
-    }
     protected void sleep(int milliseconds) {
         try {
             Thread.sleep(milliseconds);

@@ -126,20 +126,7 @@ public class View extends SurfaceView {
                 }
             }
         }
-
-        //sleep(2000);
-        //AI Move with delay
-        //gameState.dumbAIMove();
-        /*for(int i = 0; i < 8; i++){
-            for(int j = 0; j< 8; j++){
-                if(state[i][j] == 'w') {
-                    c.drawCircle(450 + (100 * i), 150 + (100 * j), 49, white);
-                }
-            }
-        }*/
-        //gameState.setIsBlackTurn(true);
-
-        }
+    }
     protected void sleep(int milliseconds) {
         try {
             Thread.sleep(milliseconds);

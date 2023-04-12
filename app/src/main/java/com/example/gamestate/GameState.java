@@ -470,6 +470,11 @@ public class GameState {
     public boolean dumbMakeMove(char c){
         int x =0;
         int y =0;
+        //if its out of bounds return false
+        if (touchX < 400 || touchX > 1200 || touchY < 100 || touchY > 900) {
+            return false;
+        }
+        //x coordinates
         if(touchX > 400 && touchX < 500){
             x = 0;
         } else if (touchX < 600) {
@@ -487,8 +492,10 @@ public class GameState {
         } else if (touchX < 1200) {
             x = 7;
         }
-        else
+        else {
             return false;
+        }
+        //Y coordinates
         if(touchY > 100 && touchY < 200){
             y = 0;
         } else if (touchY < 300) {
@@ -515,6 +522,7 @@ public class GameState {
         }
         return false;
     }
+
 
     /*
     Method to be used after a valid move is made to flip pieces over

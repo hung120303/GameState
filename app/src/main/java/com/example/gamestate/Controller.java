@@ -56,7 +56,12 @@ public class Controller implements android.view.View.OnClickListener, android.vi
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    gameState.dumbAIMove();
+                    if (!gameState.isDumb) {
+                        gameState.godAIMove();
+                    }
+                    else {
+                        gameState.dumbAIMove();
+                    }
                     view.invalidate();
                     Log.d("click", "white moves");
                     gameState.setIsBlackTurn(true);

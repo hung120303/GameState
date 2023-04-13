@@ -20,8 +20,10 @@ public class Controller implements android.view.View.OnClickListener, android.vi
     @Override
     public boolean onTouch(android.view.View view, MotionEvent motionEvent) {
         //Get XY Coordinates
-        gameState.touchX = motionEvent.getX();
-        gameState.touchY = motionEvent.getY();
+        if(motionEvent != null) {
+            gameState.touchX = motionEvent.getX();
+            gameState.touchY = motionEvent.getY();
+        }
         view.invalidate();
         if(gameState.homeScreen){
             if(!gameState.AIGame) {
@@ -52,6 +54,11 @@ public class Controller implements android.view.View.OnClickListener, android.vi
                     Log.d("click", "black moves");
                     gameState.setIsBlackTurn(false);
                     gameState.endGame();
+
+                    //Checks if no move available for WHITE
+                    if(!gameState.moveAvailable()){
+                        gameState.setIsBlackTurn(true); //Gives turn back to black if no white moves
+                    }
                     view.invalidate();
                 }
             }
@@ -60,17 +67,37 @@ public class Controller implements android.view.View.OnClickListener, android.vi
                     Log.d("click", "white moves");
                     gameState.setIsBlackTurn(true);
                     gameState.endGame();
+
+                    //Checks if no move available for BLACK
+                    if(!gameState.moveAvailable()){
+                        gameState.setIsBlackTurn(false); //Gives turn back to white if no black moves
+                    }
                     view.invalidate();
                 }
             }
+            //If move isn't valid for both players, end the game
+            if(!gameState.moveAvailable()){
+                gameState.setIsBlackTurn(!gameState.isBlackTurn);
+                if(!gameState.moveAvailable()){
+                    gameState.endGame();
+                }
+                else gameState.setIsBlackTurn(!gameState.isBlackTurn);
+            }
         }
         else if(gameState.AIGame) {
-            if (gameState.dumbMakeMove('b') && gameState.isBlackTurn) {
-                Log.d("click", "black moves");
+            Handler handler = new Handler();
+            if ((gameState.dumbMakeMove('b') && gameState.isBlackTurn) || gameState.goAgain) {
+                if(gameState.isBlackTurn){Log.d("click", "black moves");}
                 gameState.setIsBlackTurn(false);
+                gameState.endGame();
+                //Checks if no move available for WHITE
+
+                if (!gameState.moveAvailable()) {
+                    gameState.setIsBlackTurn(true); //Gives turn back to black if no white moves
+                }
+                view.invalidate();
 
                 //White AI move
-                Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -81,11 +108,17 @@ public class Controller implements android.view.View.OnClickListener, android.vi
                         }
                         gameState.endGame();
                         view.invalidate();
-                        Log.d("click", "white moves");
+                        if(!gameState.isBlackTurn){ Log.d("click", "white moves");}
                         gameState.setIsBlackTurn(true);
-                    }}, 2000);
-                }
+                        if(!gameState.moveAvailable()){
+                            gameState.setGoAgain(true);
+                        }
+                    }
+                }, 2000);
+            gameState.setGoAgain(false);
             }
+
+        }
         if(gameState.gameOver){
             //Exit and Restart buttons (respectively)
             if (gameState.touchX >= 525 && gameState.touchX <= 725 && gameState.touchY >= 600 && gameState.touchY <= 675) {
@@ -94,10 +127,12 @@ public class Controller implements android.view.View.OnClickListener, android.vi
                 gameState.AIGame = false;
                 gameState.isDumb = false;
                 gameState.gameOver = false;
+                gameState.isBlackTurn = true;
                 gameState.clearGameState();
                 view.invalidate();
             } else if (gameState.touchX >= 875 && gameState.touchX <= 1075 && gameState.touchY >= 600 && gameState.touchY <= 675) {
                 gameState.gameOver = false;
+                gameState.isBlackTurn = true;
                 gameState.clearGameState();
                 view.invalidate();
             }

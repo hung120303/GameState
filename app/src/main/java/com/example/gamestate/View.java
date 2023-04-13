@@ -125,8 +125,13 @@ public class View extends SurfaceView {
                     }
                 }
             }
+            if(gameState.goAgain) {
+                black.setTextSize(50);
+                c.drawText("Out of moves! Touch screen again to make White go!", 25, 50, black);
+            }
         }
         else{
+
             //Game End Screen
             c.drawRect(400, 100, 1200, 900, sage);
             black.setTextSize(125);
@@ -144,6 +149,15 @@ public class View extends SurfaceView {
                     c.drawText("White Wins!", 595, 310, black);
                 }
             }
+            //Score
+            String blackS = ""+gameState.numBlackPieces;
+            String whiteS = ""+gameState.numWhitePieces;
+            c.drawCircle(625, 425 , 100, black);
+            black.setTextSize(40);
+            c.drawText(blackS, 613, 560, black);
+            c.drawCircle(975, 425 , 100, white);
+            c.drawText(whiteS, 963, 560, black);
+
             //Buttons
             c.drawRect(525, 600, 725, 675, brownBox);
             c.drawRect(875, 600, 1075, 675, brownBox);

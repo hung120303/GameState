@@ -19,6 +19,7 @@ public class GameState {
     public boolean humanGame = false;
     public boolean AIGame = false;
     public boolean isDumb = false;
+    public boolean goAgain = false; //For AI to take another turn
 
     char[][] board = new char[8][8];
     // black piece = 'b'
@@ -36,6 +37,8 @@ public class GameState {
         board[4][3] = 'w'; // 'w' for white piece
         board[3][4] = 'w';
         board[4][4] = 'b';
+        numWhitePieces = 2;
+        numBlackPieces = 2;
     }
     public GameState(GameState gs){
         numBlackPieces = gs.getNumBlackPieces();
@@ -61,6 +64,7 @@ public class GameState {
     }
 
     public void setIsBlackTurn(boolean b){this.isBlackTurn = b;}
+    public void setGoAgain(boolean b){this.goAgain = b;}
 
     //Makes a new board
     public void clearGameState(){
@@ -73,6 +77,21 @@ public class GameState {
         board[4][3] = 'w'; // 'w' for white piece
         board[3][4] = 'w';
         board[4][4] = 'b';
+
+        numWhitePieces = 2;
+        numBlackPieces = 2;
+    }
+
+    //Checks the board if there is an available move for the current player
+    public boolean moveAvailable(){
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                if(isValidMove(i, j)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 
@@ -514,30 +533,56 @@ public class GameState {
      shows the end game message and says who won with the amount of disks they had.
      */
     public void endGame() {
-        int blackC = 0;
-        int whiteC = 0;
+        numBlackPieces = 0;
+        numWhitePieces = 0;
         for(int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 if (board[i][j] == 'b') {
-                    blackC++;
+                    numBlackPieces++;
                 }
                 if (board[i][j] == 'w'){
-                    whiteC++;
+                    numWhitePieces++;
                 }
             }
         }
-        if(blackC + whiteC == 64) {
+        if(numBlackPieces == 0){
             gameOver = true;
-            if (blackC > whiteC) {
-                //show message balck wins
+            blackWinner = false;
+        }
+        if(numWhitePieces == 0){
+            gameOver = true;
+            blackWinner = true;
+        }
+        if(numBlackPieces + numWhitePieces == 64) {
+            gameOver = true;
+            if (numBlackPieces > numWhitePieces) {
+                //show message black wins
                 blackWinner = true;
-            } else if (whiteC > blackC) {
+            } else if (numWhitePieces > numBlackPieces) {
                 //message saying white wins
                 blackWinner = false;
             } else {
                 //show tie message
                 isTie = true;
             }
+        }
+        //If move isn't valid for both players, end the game
+        if(!moveAvailable()){
+            setIsBlackTurn(!isBlackTurn);
+            if(!moveAvailable()){
+                if (numBlackPieces > numWhitePieces) {
+                    //show message black wins
+                    blackWinner = true;
+                } else if (numWhitePieces > numBlackPieces) {
+                    //message saying white wins
+                    blackWinner = false;
+                } else {
+                    //show tie message
+                    isTie = true;
+                }
+                gameOver = true;
+            }
+            else setIsBlackTurn(!isBlackTurn);
         }
     }
     public boolean dumbMakeMove(char c){
@@ -1044,6 +1089,8 @@ public class GameState {
                     }
                 }
             }
+            numBlackPieces = 0;
+            numWhitePieces =0;
             for (int l = 0; l<8; l++) {
                 for (int m = 0; m < 8; m++) {
                     if (board[l][m] == 'b') {

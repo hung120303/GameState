@@ -46,44 +46,48 @@ public class Controller implements android.view.View.OnClickListener, android.vi
                 }
             }
         }
-
-
-            if(gameState.humanGame) {
-                if (gameState.isBlackTurn) {
-                    if (gameState.dumbMakeMove('b')) {
-                        Log.d("click", "black moves");
-                        gameState.setIsBlackTurn(false);
-                    }
-                } else {
-                    if (gameState.dumbMakeMove('w')) {
-                        Log.d("click", "white moves");
-                        gameState.setIsBlackTurn(true);
-                    }
-                }
-            }
-            else if(gameState.AIGame) {
+        if(gameState.humanGame) {
+            if (gameState.isBlackTurn) {
                 if (gameState.dumbMakeMove('b')) {
                     Log.d("click", "black moves");
                     gameState.setIsBlackTurn(false);
-
-                    //White AI move
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!gameState.isDumb) {
-                                gameState.godAIMove();
-                            } else {
-                                gameState.dumbAIMove();
-                            }
-                            view.invalidate();
-                            Log.d("click", "white moves");
-                            gameState.setIsBlackTurn(true);
-                        }
-                    }, 2000);
+                    gameState.endGame();
+                    view.invalidate();
                 }
             }
-        return false;    }
+            else {
+                if (gameState.dumbMakeMove('w')) {
+                    Log.d("click", "white moves");
+                    gameState.setIsBlackTurn(true);
+                    gameState.endGame();
+                    view.invalidate();
+                }
+            }
+        }
+        else if(gameState.AIGame) {
+            if (gameState.dumbMakeMove('b')) {
+                Log.d("click", "black moves");
+                gameState.setIsBlackTurn(false);
+
+                //White AI move
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!gameState.isDumb) {
+                            gameState.godAIMove();
+                        } else {
+                            gameState.dumbAIMove();
+                        }
+                        gameState.endGame();
+                        view.invalidate();
+                        Log.d("click", "white moves");
+                        gameState.setIsBlackTurn(true);
+                    }}, 2000);
+                }
+            }
+        return false;
+    }
 
     protected void sleep(int milliseconds) {
         try {

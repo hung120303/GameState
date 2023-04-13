@@ -14,6 +14,8 @@ public class GameState {
     public double touchY;
     public boolean isBlackTurn = true;
     public boolean gameOver = false;
+    public boolean blackWinner;
+    public boolean isTie;
 
     public boolean humanGame = false;
     public boolean AIGame = false;
@@ -382,15 +384,6 @@ public class GameState {
         }
         return false;
     }
-    public boolean makeMove(int row, int col){
-        if(isValidMove(row, col)){
-            board = new char[8][8];
-            isBlackTurn = !isBlackTurn;
-            return true;
-        }
-        else
-            return false;
-    }
 
     /*
      * Dumb AI moves
@@ -485,7 +478,7 @@ public class GameState {
     /*
      * checks weather the game is over or not
      */
-    private boolean gameOver() {
+ /*   private boolean gameOver() {
         boolean full = false;
         int countTotal = 0;
         for (int i = 0; i < 8; i++)
@@ -503,7 +496,7 @@ public class GameState {
             full = true;
         }
         return full;
-    }
+    }*/
 
     /*
      shows the end game message and says who won with the amount of disks they had.
@@ -521,17 +514,19 @@ public class GameState {
                 }
             }
         }
-        if (blackC > whiteC){
-            //show message balck wins
+        if(blackC + whiteC == 64) {
+            gameOver = true;
+            if (blackC > whiteC) {
+                //show message balck wins
+                blackWinner = true;
+            } else if (whiteC > blackC) {
+                //message saying white wins
+                blackWinner = false;
+            } else {
+                //show tie message
+                isTie = true;
+            }
         }
-        else if (whiteC > blackC) {
-            //message saying white wins
-        }
-        else {
-            //show tie message
-        }
-
-
     }
     public boolean dumbMakeMove(char c){
         int x =0;

@@ -79,7 +79,7 @@ public class View extends SurfaceView {
             }
 
         }
-        else {
+        else if (!gameState.gameOver){
             c.drawRect(400, 100, 1200, 900, green);
             //vertical lines
             for (int i = 0; i < 9; i++) {
@@ -123,6 +123,24 @@ public class View extends SurfaceView {
                     } else if (state[i][j] == 'e') {
                         c.drawCircle(450 + (100 * j), 150 + (100 * i), 49, green);
                     }
+                }
+            }
+        }
+        else{
+            //Game End Screen
+            c.drawRect(415, 115, 1185, 885, sage);
+            black.setTextSize(125);
+            c.drawText("Game Over!", 500, 250, black);
+            black.setTextSize(50);
+            if(gameState.isTie){
+                c.drawText("Tie. No Winner!", 550, 600, black);
+            }
+            else{
+                if(gameState.blackWinner) {
+                    c.drawText("Black Wins!", 550, 600, black);
+                }
+                else {
+                    c.drawText("White Wins!", 550, 600, black);
                 }
             }
         }

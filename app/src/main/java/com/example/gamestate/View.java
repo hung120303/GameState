@@ -128,21 +128,29 @@ public class View extends SurfaceView {
         }
         else{
             //Game End Screen
-            c.drawRect(415, 115, 1185, 885, sage);
+            c.drawRect(400, 100, 1200, 900, sage);
             black.setTextSize(125);
-            c.drawText("Game Over!", 500, 250, black);
-            black.setTextSize(50);
+            //GameOverMessage
+            c.drawText("Game Over!", 480, 240, black);
+            black.setTextSize(75);
             if(gameState.isTie){
-                c.drawText("Tie. No Winner!", 550, 600, black);
+                c.drawText("Tie. No Winner!", 595, 310, black);
             }
             else{
                 if(gameState.blackWinner) {
-                    c.drawText("Black Wins!", 550, 600, black);
+                    c.drawText("Black Wins!", 595, 310, black);
                 }
                 else {
-                    c.drawText("White Wins!", 550, 600, black);
+                    c.drawText("White Wins!", 595, 310, black);
                 }
             }
+            //Buttons
+            c.drawRect(525, 600, 725, 675, brownBox);
+            c.drawRect(875, 600, 1075, 675, brownBox);
+            black.setTextSize(50);
+            c.drawText("Exit", 575, 655, black);
+            black.setTextSize(50);
+            c.drawText("Restart", 895, 655, black);
         }
     }
     protected void sleep(int milliseconds) {

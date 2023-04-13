@@ -529,6 +529,12 @@ public class GameState {
         }
     }
     public boolean dumbMakeMove(char c){
+        if(c == 'b' && !isBlackTurn){
+            return false;
+        }
+        if(c == 'w' && isBlackTurn){
+            return false;
+        }
         int x =0;
         int y =0;
         //if its out of bounds return false

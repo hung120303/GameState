@@ -65,7 +65,7 @@ public class Controller implements android.view.View.OnClickListener, android.vi
             }
         }
         else if(gameState.AIGame) {
-            if (gameState.dumbMakeMove('b')) {
+            if (gameState.dumbMakeMove('b') && gameState.isBlackTurn) {
                 Log.d("click", "black moves");
                 gameState.setIsBlackTurn(false);
 
@@ -86,6 +86,10 @@ public class Controller implements android.view.View.OnClickListener, android.vi
                     }}, 2000);
                 }
             }
+        if(gameState.gameOver){
+
+        }
+
         return false;
     }
 

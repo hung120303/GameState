@@ -87,7 +87,20 @@ public class Controller implements android.view.View.OnClickListener, android.vi
                 }
             }
         if(gameState.gameOver){
-
+            //Exit and Restart buttons (respectively)
+            if (gameState.touchX >= 525 && gameState.touchX <= 725 && gameState.touchY >= 600 && gameState.touchY <= 675) {
+                gameState.homeScreen = true;
+                gameState.humanGame = false;
+                gameState.AIGame = false;
+                gameState.isDumb = false;
+                gameState.gameOver = false;
+                gameState.clearGameState();
+                view.invalidate();
+            } else if (gameState.touchX >= 875 && gameState.touchX <= 1075 && gameState.touchY >= 600 && gameState.touchY <= 675) {
+                gameState.gameOver = false;
+                gameState.clearGameState();
+                view.invalidate();
+            }
         }
 
         return false;

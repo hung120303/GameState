@@ -16,7 +16,6 @@ public class GameState {
     public boolean gameOver = false;
     public boolean blackWinner;
     public boolean isTie;
-
     public boolean humanGame = false;
     public boolean AIGame = false;
     public boolean isDumb = false;
@@ -62,6 +61,19 @@ public class GameState {
     }
 
     public void setIsBlackTurn(boolean b){this.isBlackTurn = b;}
+
+    //Makes a new board
+    public void clearGameState(){
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                board[i][j] = 'e'; // 'e' for empty
+            }
+        }
+        board[3][3] = 'b'; // 'b' for black piece
+        board[4][3] = 'w'; // 'w' for white piece
+        board[3][4] = 'w';
+        board[4][4] = 'b';
+    }
 
 
 

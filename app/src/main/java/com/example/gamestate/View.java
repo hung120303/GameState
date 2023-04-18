@@ -127,6 +127,9 @@ public class View extends SurfaceView {
                     } else if (state[i][j] == 'e') {
                         c.drawCircle(450 + (100 * j), 150 + (100 * i), 49, green);
                     }
+                    //Put piece counter
+                    c.drawText("Black Pieces:" + gameState.numBlackPieces , 400, 1000, black);
+                    c.drawText("White Pieces:" + gameState.numWhitePieces , 400, 1050, black);
                     //Draw grey circles for possible move
                     for (int l = 0; l < 8; l++) {
                         for (int m = 0; m < 8; m++) {

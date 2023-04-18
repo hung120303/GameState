@@ -12,6 +12,8 @@ public class GameState {
     //Finding coordinates of mouse
     public double touchX;
     public double touchY;
+    public int blackNumb = 0;
+    public int whiteNumb = 0;
     public boolean isBlackTurn = true;
     public boolean gameOver = false;
     public boolean blackWinner;

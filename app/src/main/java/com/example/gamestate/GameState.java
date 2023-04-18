@@ -63,8 +63,16 @@ public class GameState {
         return this.board;
     }
 
-    public void setIsBlackTurn(boolean b){this.isBlackTurn = b;}
-    public void setGoAgain(boolean b){this.goAgain = b;}
+    public void setIsBlackTurn(boolean b){
+        this.isBlackTurn = b;
+    }
+    public void setGoAgain(boolean b){
+        this.goAgain = b;
+    }
+
+
+
+
 
     //Makes a new board
     public void clearGameState(){

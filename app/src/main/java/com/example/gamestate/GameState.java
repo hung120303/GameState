@@ -12,6 +12,8 @@ public class GameState {
     //Finding coordinates of mouse
     public double touchX;
     public double touchY;
+    public int blackNumb = 0;
+    public int whiteNumb = 0;
     public boolean isBlackTurn = true;
     public boolean gameOver = false;
     public boolean blackWinner;
@@ -63,8 +65,16 @@ public class GameState {
         return this.board;
     }
 
-    public void setIsBlackTurn(boolean b){this.isBlackTurn = b;}
-    public void setGoAgain(boolean b){this.goAgain = b;}
+    public void setIsBlackTurn(boolean b){
+        this.isBlackTurn = b;
+    }
+    public void setGoAgain(boolean b){
+        this.goAgain = b;
+    }
+
+
+
+
 
     //Makes a new board
     public void clearGameState(){

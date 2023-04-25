@@ -26,6 +26,8 @@ public class View extends SurfaceView {
     Paint othello = new Paint();
     Paint brownBox = new Paint();
 
+    Paint lightGrey = new Paint();
+
     public View(Context context, AttributeSet attrs) {
         super(context, attrs);
         gameState = new GameState();
@@ -37,6 +39,7 @@ public class View extends SurfaceView {
         othello.setColor(Color.WHITE);
         othello.setStyle(Paint.Style.FILL);
         brownBox.setColor(0xFFceb396);
+        lightGrey.setColor(0x10D3D3D3);
 
         setBackgroundColor(Color.WHITE);
 
@@ -112,6 +115,7 @@ public class View extends SurfaceView {
             c.drawCircle(600, 700, 8, black);
             c.drawCircle(1000, 700, 8, black);
 
+
             //Check the board and update it with the current state of the game
             char[][] state = gameState.getBoard();
             for (int i = 0; i < 8; i++) {
@@ -122,6 +126,17 @@ public class View extends SurfaceView {
                         c.drawCircle(450 + (100 * j), 150 + (100 * i), 49, white);
                     } else if (state[i][j] == 'e') {
                         c.drawCircle(450 + (100 * j), 150 + (100 * i), 49, green);
+                    }
+                    //Put piece counter
+                    c.drawText("Black Pieces:" + gameState.numBlackPieces , 400, 1000, black);
+                    c.drawText("White Pieces:" + gameState.numWhitePieces , 400, 1050, black);
+                    //Draw grey circles for possible move
+                    for (int l = 0; l < 8; l++) {
+                        for (int m = 0; m < 8; m++) {
+                            if (gameState.isValidMove(l, m)) {
+                                c.drawCircle(450 + (100 * m), 150 + (100 * l), 15, lightGrey);
+                            }
+                        }
                     }
                 }
             }

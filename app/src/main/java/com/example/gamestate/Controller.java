@@ -97,6 +97,10 @@ public class Controller implements android.view.View.OnClickListener, android.vi
                 }
                 view.invalidate();
 
+
+                // This code was done through the help of tutorialspoint.com. In particular, it had
+                // info on how to code a handler, and using it to delay a code.
+                // https://www.tutorialspoint.com/how-to-set-delay-in-android
                 //White AI move
                 handler.postDelayed(new Runnable() {
                     @Override
